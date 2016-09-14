@@ -6,10 +6,6 @@ html {
 	
 }
 
-body {
-	
-}
-
 a {
 	color: #86c9db;
 	
@@ -19,4 +15,108 @@ a:hover {
 	color: #f9ad48;
 	
 }
+#app-intro-div {
+	padding-right: 50px;
+	padding-left: 30px;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	height: 100%;
+	
+}
 
+.pad-50 {
+	padding: 50px;
+}
+
+h4.results-title {
+	padding-top: 2rem;
+}
+
+.lr-pad-50 {
+	padding-left: 50px;
+	padding-right: 20px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+#search-block {
+	
+}
+h4.search-title {
+
+	background: #f4511e;
+	padding: 10px;
+}
+
+#search-form {
+	padding: 30px;
+	padding-top: 15px;
+}
+
+form {
+
+}
+
+#list-div {
+	
+}
+
+.main-content {
+	
+
+}
+
+.brand-logo {
+	margin-left: 30px;
+}
+
+.row .col {
+	padding-left: 0rem;
+	padding-right: 0rem;
+	}
+
+header {
+	
+}
+
+body {
+   
+    background: radial-gradient(#424242, #2a2a2a);
+  }
+      
+main {
+	margin: 0;
+	
+	margin-right: auto;
+	margin-left: auto;
+	flex: 1 0 auto;
+	padding: 1rem;
+}
+
+nav {
+	
+}
+
+footer.page-footer {
+	margin-top: 0px;
+	padding-top: 0px;
+}
+
+h1 {
+	font-size: 2rem;
+}
+
+h4 {
+	font-size: 1.5rem;
+	font-weight: 200;
+}
+
+.row {
+	margin-bottom: 0px;
+}
+
+#container {
+	
+	margin-left: auto;
+	margin-right: auto;
+}
