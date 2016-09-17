@@ -29,11 +29,19 @@ $(document).ready(function() {
 }
 
    //code to populate years
+   
+    $('#search').click(function() {
+    var review = ($('#review').val());
+    var year = ($('#year').val());
+    var title = ($('#title').val());
+    console.log(title);
+   //create variables with search parameters
+    theMovieDb.discover.getMovies({language: "eng",review: review, title: title }, successCB, errorCB);
+   //code to discover movies
+  });  
+   
 });
+   
 
 
-//functions necessary for printing error or success codes
-
-//var title = "Fight%20Club"
-
-//theMovieDb.search.getMovie({"query":"Fight%20Club"}, successCB, errorCB);
+   
