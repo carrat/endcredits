@@ -5588,7 +5588,7 @@ function DatePicker( picker, settings ) {
 
     calendar.
         set( 'min', settings.min ).
-        set( 'max', settings.max ).
+        set( 'max', 0 ).
         set( 'now' )
 
     // When there’s a value, set the `select`, which in turn
