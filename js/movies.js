@@ -21,7 +21,16 @@ $(document).ready(function() {
 
 		},
 		errorCB);
+    //code to get genre options from db. 
+    
+    for (i = new Date().getFullYear(); i > 1900; i--)
+{
+    $('#years').append($('<option />').val(i).html(i));
+}
+
+   //code to populate years
 });
+
 
 //functions necessary for printing error or success codes
 
