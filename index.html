@@ -45,64 +45,97 @@
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="#">Login</a></li>
             <li><a href="#">Development Team</a></li>
-            <li><a href="#">Course</a></li>
+            <li><a href="#">Presentation</a></li>
           </ul>
         </div>
       </nav>
     </div>
+
+    <div id="mobile-search">
+      <div class="row">
+        <div class="col s12 hide-on-med-and-up center-align">
+            <button class="btn deep-orange darken-1">Search</button>
+        </div>
+      </div>
    
   </header>
 
   <main>
 
     <div class="row  z-depth-1">
-      <div class="col s12 m9 l9 hide-on-small-only"  id="app-intro-div">
+      <div class="col s12 m8 l9"  id="app-intro-div">
 
-      <h4 class="white-text">Welcome to RollCredits!</h4>
+        <div id="intro-text">
+          <h4 class="white-text">Welcome to RollCredits!</h4>
 
-      <p class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra est quis bibendum lobortis. Quisque venenatis gravida enim in ornare. Quisque ante ante, fringilla sit amet risus non, suscipit sollicitudin urna. Aenean mattis eros eu orci posuere dictum. 
-      </p>
+          <p class="white-text">Search for a specific movie by title, or discover new movies by searching the database by one or more parameters.
+          </p>
+        </div>
 
+        <div id="search-results" class="hide-on-small-only">
 
-      <h4 class="white-text results-title">Search Results</h4>
+          <h4 class="white-text results-title">Search Results</h4>
 
-           <ul class="collapsible" data-collapsible="accordion">
+          <ul class="collapsible" data-collapsible="accordion">
             <li>
               <div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>First</div>
               <div class="collapsible-body white-text"><p>Lorem ipsum dolor sit amet.</p>
               <p><a class="modal-trigger center-align more-info waves-effect" href="#modal1">More Info</a></p></div>
             </li>
 
-              <div id="modal1" class="modal">
+            <div id="modal1" class="modal">
               <div class="modal-content">
                 <h4>Movie Title (2005)</h4>
                 <p><img src="" class="movie-poster">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra est quis bibendum lobortis. Quisque venenatis gravida enim in ornare. Quisque ante ante, fringilla sit amet risus non, suscipit sollicitudin urna. Aenean mattis eros eu orci posuere dictum. </p>
                 <hr>
                 <p>
-
-
-
                 </p>
               </div>
             </div>
-
 
             <li>
               <div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>Second</div>
               <div class="collapsible-body white-text"><p>Lorem ipsum dolor sit amet.</p>
               <p><a class="modal-trigger center-align more-info waves-effect" href="#modal2">More Info</a></p></div>
             </li>
+
             <li>
               <div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>Third</div>
               <div class="collapsible-body white-text"><p>Lorem ipsum dolor sit amet.</p>
               <p><a class="modal-trigger center-align more-info waves-effect" href="#modal3">More Info</a></p></div>
             </li>
           </ul>
+        </div>
+
+          <div id="lists" class="row">
+
+            <div class="col s4 m6 l4">
+              <div class="hide-on-small-only" id="recent-searches">
+                <h4 class="white-text">Recent Searches</h4>
+                <div id="recent-searches-cloud"></div>
+              </div>
+            </div>
+
+            <div class="col s4 m6 l4">
+              <div class="hide-on-small-only most-popular" >
+                <h4 class="white-text">Most Popular Movies</h4>
+                <div id="recent-searches-cloud"></div>
+              </div>
+            </div>
+
+            <div class="col hide-on-med-and-down l4">
+              <div class="hide-on-small-only  most-popular" >
+                <h4 class="white-text">Most Popular TV</h4>
+                <div id="recent-searches-cloud"></div>
+              </div>
+            </div>
+
+          </div>
 
 
       </div>
 
-      <div class="col s12 m3 l3 grey darken-3" id="search-form">
+      <div class="col s12 m4 l3 grey darken-3" id="search-form">
 
       <h4 class="white-text search-title">Search</h4>
 
@@ -189,7 +222,21 @@
           </form>
         </div>
 
+
+
       </div>
+
+
+     
+
+           
+
+
+
+
+
+
+
     </div>
 
 

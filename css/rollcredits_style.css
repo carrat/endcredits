@@ -16,9 +16,9 @@ a:hover {
 	
 }
 #app-intro-div {
-	padding-right: 50px;
+	padding-right: 10px;
 	padding-left: 30px;
-	padding-top: 30px;
+	padding-top: 10px;
 	padding-bottom: 30px;
 	height: 100%;
 	
@@ -51,6 +51,24 @@ h4.search-title {
 #search-form {
 	padding: 30px;
 	padding-top: 15px;
+}
+
+#recent-searches {
+
+}
+
+
+#recent-searches-cloud {
+
+
+
+
+}
+
+
+#search-results {
+
+	padding-right: 50px;
 }
 
 form {
@@ -127,3 +145,13 @@ h4 {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+@media screen and (max-width: 468px) {
+
+  	.brand-logo {
+	margin-left: 0px;
+}
+
+
+}
+
