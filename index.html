@@ -22,13 +22,17 @@
 <!-- Add Google Web Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto+Slab:100,300,400,700|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
 <!-- Firebase JavaScript Link -->
-    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+<!--   <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script> -->
 <!--load firebase credentials from outside root -->
-    <script src="js/firebase.rollcredits.js"></script>
+<!--  <script src="js/firebase.rollcredits.js"></script> -->
 <!--load Freeloader javascript -->
     <script src="js/rollcredits_js.js"></script>
 <!--load Materialize javascript - lets Materialize framework work-->
     <script src="js/materialize.js"></script>
+<!--load TheMovieDb javascript library -->
+    <script src="js/themoviedb.js"></script>
+<!--load our search script -->
+    <script src="js/movies.js"></script>
 
 
 </head>
@@ -163,10 +167,8 @@
 
             <div class="row valign-wrapper">
               <div class="input-field col s12">
-                 <select>
-                    <option value="1" selected> < 10 Miles</option>
-                    <option value="2"> < 20 Miles</option>
-                    <option value="3"> < 30 Miles</option>
+                 <select id="genre-options">
+                 <option id="default-genre-option">Please Select a Genre</option>
                   </select>
                   <label>Genre</label>
               </div>
@@ -177,11 +179,9 @@
             <div class="row valign-wrapper">
               <div class="input-field col s12">
                  <select>
-                    <option value="1" selected> < 10 Miles</option>
-                    <option value="2"> < 20 Miles</option>
-                    <option value="3"> < 30 Miles</option>
+                   <option id="years"></option>
                   </select>
-                  <label>Genre</label>
+                  <label>Years</label>
               </div>
 
              
