@@ -34,8 +34,8 @@ $(document).ready(function() {
         var date = ($('#start-date').val());
         // console.log(date);
         var year = moment(date).format('YYYY');
-        var fullDate = moment(date).format('YYYY-D-MM');
-        // console.log(fullDate);
+        var fullDate = moment(date).format('YYYY-MM-DD');
+         console.log(fullDate);
         // console.log(year);
         var title = ($('#search-text').val());
 
@@ -44,17 +44,13 @@ $(document).ready(function() {
             theMovieDb.discover.getMovies({ language: "eng", review: review, title: title, year: year },
                 function(json) {
                     var movieResults = $.parseJSON(json);
-                    $.each(movieResults, function(index, movieResult) {
+                    $.each(movieResults.results, function(index, movieResult) {
 
                         //  console.log(movieResult);
 
-                        if ($.isEmptyObject(movieResult) == false) {
-
-                            $.each(movieResult, function(index, movie) {
-
+                      
                                 console.log(this.title, this.id, this.poster_path, this.release_date, this.overview, this.vote_average);
-                            });
-                        }
+                      
                     })
 
                 },
@@ -62,20 +58,16 @@ $(document).ready(function() {
 
 
         } else {
-            theMovieDb.discover.getTvShows({ language: "eng", review: review, title: title, first_air_date: fullDate },
+            theMovieDb.discover.getTvShows({ language: "eng", review: review, title: title, first_air_date_year: year },
                 function(json) {
                     var movieResults = $.parseJSON(json);
-                    $.each(movieResults, function(index, movieResult) {
+                    $.each(movieResults.results, function(index, movieResult) {
 
                         //  console.log(movieResult);
 
-                        if ($.isEmptyObject(movieResult) == false) {
-
-                            $.each(movieResult, function(index, movie) {
-
-                                //       console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
-                            });
-                        }
+                     
+                                      console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
+                     
                     })
 
                 },
