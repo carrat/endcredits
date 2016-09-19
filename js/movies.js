@@ -31,31 +31,56 @@ $(document).ready(function() {
 
     $('#search').click(function() {
         var review = ($('#review').val());
-        var year = ($('#year').val());
-        var title = ($('#title').val());
+        var year = ($('#yearOne').val());
+        var title = ($('#search-text').val());
         //console.log(title);
         //create variables with search parameters
         // theMovieDb.discover.getMovies({language: "eng",review: review, title: title }, successCB, errorCB);
         //code to discover movies
-        theMovieDb.discover.getMovies({ language: "eng", review: review },
+        
+        if ($('#lever').val() === 0) {
+        	theMovieDb.discover.getMovies({ language: "eng", review: review, title: title, year: year},
             function(json) {
                 var movieResults = $.parseJSON(json);
-                // console.log(movieResults.original_title);
                 $.each(movieResults, function(index, movieResult) {
 
-                    console.log(movieResult);
+                //  console.log(movieResult);
 
                     if ($.isEmptyObject(movieResult) == false) {
 
                         $.each(movieResult, function(index, movie) {
 
-                            console.log(this.title, this.id, this.poster_path, this.release_date, this.vote_average);
+                            console.log(this.title, this.id, this.poster_path, this.release_date, this.overview, this.vote_average);
                         });
                     }
                 })
 
             },
             errorCB);
+
+         
+        }
+        
+        else {
+         	theMovieDb.discover.getTvShows({ language: "eng", review: review, title: title, year: year},
+            function(json) {
+                var movieResults = $.parseJSON(json);
+                $.each(movieResults, function(index, movieResult) {
+
+                  //  console.log(movieResult);
+
+                    if ($.isEmptyObject(movieResult) == false) {
+
+                        $.each(movieResult, function(index, movie) {
+
+                            console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
+                        });
+                    }
+                })
+
+            },
+            errorCB);
+         }
 
     });
 
