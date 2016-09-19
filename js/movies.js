@@ -10,18 +10,19 @@ $(document).ready(function() {
 
 
 
+// Create dropdown select elements for form
 
     theMovieDb.genres.getList('',
         function(json) {
             var results = $.parseJSON(json);
-            console.log(results.genres);
+            //console.log(results.genres);
 
             $.each(results.genres, function(index, genre) {
                 var option = $('<option>').attr('class', 'genre');
                 option.attr("id", " ");
                 option.val(this.id);
                 option.html(this.name);
-                console.log(this.name);
+                //console.log(this.name);
                 $('#genre-options').append(option);
             })
 
@@ -37,7 +38,31 @@ $(document).ready(function() {
 
     //code to populate years
 
+    $('.lookup').change(function() {
+
+        if ($('.lookup').val() === 'on') {
+            $('.lookup').val('off');
+        }
+
+        else {
+            $('.lookup').val('on');
+        }
+
+        console.log($('.lookup').val());
+
+    });
+
+
+
+
+
+
+
     $('#search').click(function() {
+
+        var lookup = $('.lookup').val();
+
+        console.log("Click");
         var review = ($('#review').val());
         var year = ($('#yearOne').val());
         var title = ($('#search-text').val());
@@ -46,13 +71,15 @@ $(document).ready(function() {
         // theMovieDb.discover.getMovies({language: "eng",review: review, title: title }, successCB, errorCB);
         //code to discover movies
         
-        if ($('#lever').val() === 0) {
+        if (lookup === 'on') {
         	theMovieDb.discover.getMovies({ language: "eng", review: review, title: title, year: year},
             function(json) {
                 var movieResults = $.parseJSON(json);
                 $.each(movieResults, function(index, movieResult) {
 
                 //  console.log(movieResult);
+
+                console.log("Movie");
 
                     if ($.isEmptyObject(movieResult) == false) {
 
@@ -74,6 +101,9 @@ $(document).ready(function() {
             function(json) {
                 var movieResults = $.parseJSON(json);
                 $.each(movieResults, function(index, movieResult) {
+
+                     console.log("TV");
+                      console.log(lookup);
 
                   //  console.log(movieResult);
 
