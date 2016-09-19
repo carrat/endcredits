@@ -31,7 +31,12 @@ $(document).ready(function() {
 
     $('#search').click(function() {
         var review = ($('#review').val());
-        var year = ($('#yearOne').val());
+        var startDate = ($('#start-date').val());
+       // console.log(date);
+        var startYear = moment(date).format('YYYY');
+        var fullStartDate = moment(date).format('YYYY-D-MM');
+       // console.log(fullDate);
+       // console.log(year);
         var title = ($('#search-text').val());
         //console.log(title);
         //create variables with search parameters
@@ -39,7 +44,7 @@ $(document).ready(function() {
         //code to discover movies
         
         if ($('#lever').val() === 0) {
-        	theMovieDb.discover.getMovies({ language: "eng", review: review, title: title, year: year},
+        	theMovieDb.discover.getMovies({ language: "eng", review: review, title: title, year: startYear},
             function(json) {
                 var movieResults = $.parseJSON(json);
                 $.each(movieResults, function(index, movieResult) {
@@ -62,7 +67,7 @@ $(document).ready(function() {
         }
         
         else {
-         	theMovieDb.discover.getTvShows({ language: "eng", review: review, title: title, year: year},
+         	theMovieDb.discover.getTvShows({ language: "eng", review: review, title: title },
             function(json) {
                 var movieResults = $.parseJSON(json);
                 $.each(movieResults, function(index, movieResult) {
@@ -73,7 +78,7 @@ $(document).ready(function() {
 
                         $.each(movieResult, function(index, movie) {
 
-                            console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
+                     //       console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
                         });
                     }
                 })
