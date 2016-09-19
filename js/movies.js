@@ -72,20 +72,21 @@ $(document).ready(function() {
         //code to discover movies
         
         if (lookup === 'on') {
-        	theMovieDb.discover.getMovies({ language: "eng", review: review, title: title, year: year},
+        	theMovieDb.search.getMovie({ language: "eng", review: review, query: title},
             function(json) {
                 var movieResults = $.parseJSON(json);
                 $.each(movieResults, function(index, movieResult) {
 
                 //  console.log(movieResult);
 
-                console.log("Movie");
+                console.log(movieResult);
 
                     if ($.isEmptyObject(movieResult) == false) {
 
                         $.each(movieResult, function(index, movie) {
 
-                            console.log(this.title, this.id, this.poster_path, this.release_date, this.overview, this.vote_average);
+                         
+                            outputSearchMovie(movie);
                         });
                     }
                 })
@@ -122,4 +123,15 @@ $(document).ready(function() {
 
     });
 
+
+    function outputSearchMovie(results) {
+        resultsItem = $('<li>').attr('id', results.id);
+        $(resultsItem).html('<div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>' + results.title + '</div><div class="collapsible-body white-text"><p>' +  results.overview +'</p> <p><a class="modal-trigger center-align more-info waves-effect" href="#modal1" data-id="' + results.id + '">More Info</a></p></div>')
+
+        $('#search-results-collection').append(resultsItem);
+    }
+
 });
+
+
+
