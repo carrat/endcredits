@@ -82,34 +82,8 @@
 
           <h4 class="white-text results-title">Search Results</h4>
 
-          <ul class="collapsible" data-collapsible="accordion">
-            <li>
-              <div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>First</div>
-              <div class="collapsible-body white-text"><p>Lorem ipsum dolor sit amet.</p>
-              <p><a class="modal-trigger center-align more-info waves-effect" href="#modal1">More Info</a></p></div>
-            </li>
-
-            <div id="modal1" class="modal">
-              <div class="modal-content">
-                <h4>Movie Title (2005)</h4>
-                <p><img src="" class="movie-poster">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra est quis bibendum lobortis. Quisque venenatis gravida enim in ornare. Quisque ante ante, fringilla sit amet risus non, suscipit sollicitudin urna. Aenean mattis eros eu orci posuere dictum. </p>
-                <hr>
-                <p>
-                </p>
-              </div>
-            </div>
-
-            <li>
-              <div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>Second</div>
-              <div class="collapsible-body white-text"><p>Lorem ipsum dolor sit amet.</p>
-              <p><a class="modal-trigger center-align more-info waves-effect" href="#modal2">More Info</a></p></div>
-            </li>
-
-            <li>
-              <div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>Third</div>
-              <div class="collapsible-body white-text"><p>Lorem ipsum dolor sit amet.</p>
-              <p><a class="modal-trigger center-align more-info waves-effect" href="#modal3">More Info</a></p></div>
-            </li>
+          <ul class="collapsible group-results" data-collapsible="accordion">
+           
           </ul>
         </div>
 
@@ -224,8 +198,38 @@
 
     </div>
 
+<!--hidden elements for cloning results-->
 
-      
+<div hidden>
+ <li id="results-clone">
+              <div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i><span class="results-header">First</span></div>
+              <div class="collapsible-body white-text"><p class="overview">Lorem ipsum dolor sit amet.</p>
+              <p><a class="modal-trigger center-align more-info waves-effect" href="#modal1">More Info</a></p></div>
+            </li>
+
+            <div id="modal-clone" class="modal">
+              <div class="modal-content">
+                <h4 class="modal-title">Movie Title (2005)</h4>
+                <p><img src="" class="movie-poster">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra est quis bibendum lobortis. Quisque venenatis gravida enim in ornare. Quisque ante ante, fringilla sit amet risus non, suscipit sollicitudin urna. Aenean mattis eros eu orci posuere dictum. </p>
+                <hr>
+                <p>
+                </p>
+              </div>
+            </div>
+            
+
+            <li>
+              <div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>Second</div>
+              <div class="collapsible-body white-text"><p>Lorem ipsum dolor sit amet.</p>
+              <p><a class="modal-trigger center-align more-info waves-effect" href="#modal2">More Info</a></p></div>
+            </li>
+
+            <li>
+              <div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>Third</div>
+              <div class="collapsible-body white-text"><p>Lorem ipsum dolor sit amet.</p>
+              <p><a class="modal-trigger center-align more-info waves-effect" href="#modal3">More Info</a></p></div>
+            </li>
+      </div>
   </main>
 
   <footer class="page-footer deep-orange darken-4 hide-on-small-only z-depth-1">
