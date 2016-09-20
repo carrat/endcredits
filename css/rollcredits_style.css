@@ -152,7 +152,7 @@ h4 {
 .input-field input {
   display: block;
   line-height: inherit;
-  padding-left: 4rem;
+  padding-left: .4rem;
   width: calc(100% - 4rem);
   background: #FFFFFF;
   padding-top: 0rem;

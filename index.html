@@ -82,34 +82,8 @@
 
           <h4 class="white-text results-title">Search Results</h4>
 
-          <ul class="collapsible" data-collapsible="accordion">
-            <li>
-              <div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>First</div>
-              <div class="collapsible-body white-text"><p>Lorem ipsum dolor sit amet.</p>
-              <p><a class="modal-trigger center-align more-info waves-effect" href="#modal1">More Info</a></p></div>
-            </li>
-
-            <div id="modal1" class="modal">
-              <div class="modal-content">
-                <h4>Movie Title (2005)</h4>
-                <p><img src="" class="movie-poster">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra est quis bibendum lobortis. Quisque venenatis gravida enim in ornare. Quisque ante ante, fringilla sit amet risus non, suscipit sollicitudin urna. Aenean mattis eros eu orci posuere dictum. </p>
-                <hr>
-                <p>
-                </p>
-              </div>
-            </div>
-
-            <li>
-              <div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>Second</div>
-              <div class="collapsible-body white-text"><p>Lorem ipsum dolor sit amet.</p>
-              <p><a class="modal-trigger center-align more-info waves-effect" href="#modal2">More Info</a></p></div>
-            </li>
-
-            <li>
-              <div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>Third</div>
-              <div class="collapsible-body white-text"><p>Lorem ipsum dolor sit amet.</p>
-              <p><a class="modal-trigger center-align more-info waves-effect" href="#modal3">More Info</a></p></div>
-            </li>
+          <ul class="collapsible" data-collapsible="accordion" id="search-results-collection">
+           
           </ul>
         </div>
 
@@ -145,19 +119,17 @@
         <h4 class="white-text search-title">Search</h4>
           <div class="row">
 
-            <form class="col s12 slider-form">
-              <div class="switch">
+
+            <form class="col s12 ">
+
+            <div class="switch">
                 <label>
                   Movies
-                  <input type="checkbox">
+                  <input type="checkbox" name="lookup" class="lookup">
                   <span class="lever"></span>
                   TV
                 </label>
               </div>
-            </form>
-
-
-            <form class="col s12 ">
 
              <p class="white-text">By Title</p>
               
@@ -174,9 +146,9 @@
               <p class="white-text">By Genre</p>
 
               <div class="row valign-wrapper">
-                <div class="input-field col s12">
+                <div class="input-field col s12 genre-div">
                    <select id="genre-options">
-                   <option value="" id="default-genre-option">Select a Genre</option>
+                   <option value="" class="default-genre-option">Select a Genre</option>
                     </select>
                     
                 </div>  
@@ -185,20 +157,14 @@
               <p class="white-text">By Release Date</p>
 
               <div class="row valign-wrapper">
-
+                  <div class="input-field col s12 genre-div">
+                   <select id="year-options">
+                   <option value="" class="default-year-option">Select a Year</option>
+                    </select>
+                    
+              </div> 
               
 
-                <div class="input-field-date col s12">
-                <label>Start Date</label>
-                   <input type="start_date" class="datepicker" id="start-date">
-                </div>  
-              </div>
-
-              <div class="row valign-wrapper">
-                <div class="input-field-date col s12">
-                <label>End Date</label>
-                   <input type="end_date" class="datepicker" id="end-date">
-                </div>  
               </div>
 
               <div class="row">
@@ -211,20 +177,7 @@
           </div>
       </div>
 
-
-     
-
-           
-
-
-
-
-
-
-
     </div>
-
-
       
   </main>
 
@@ -260,7 +213,3 @@
 
 </body>
 </html>
-
-
-
-
