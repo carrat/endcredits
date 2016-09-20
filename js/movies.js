@@ -126,9 +126,28 @@ $(document).ready(function() {
 
     function outputSearchMovie(results) {
         resultsItem = $('<li>').attr('id', results.id);
-        $(resultsItem).html('<div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>' + results.title + '</div><div class="collapsible-body white-text"><p>' +  results.overview +'</p> <p><a class="modal-trigger center-align more-info waves-effect" href="#modal1" data-id="' + results.id + '">More Info</a></p></div>')
+        $(resultsItem).html('<div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>' + results.title + '</div><div class="collapsible-body white-text"><p>' +  results.overview +'</p> <p><a class="modal-trigger center-align more-info waves-effect" href="#modal-' + results.id + '" data-id="' + results.id + '">More Info</a></p></div><div id="modal-' + results.id + '" class="modal"><div class="modal-content"><h4>' + results.title + '</h4><p><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/'+results.poster_path + '" class="movie-poster">' + results.description + '</p><hr><p>Release Date: ' + results.release_date + '</p></div></div>')
 
         $('#search-results-collection').append(resultsItem);
+
+        $('.modal-trigger').leanModal();
+
+        $('.modal-trigger').click(getDetailsMovie(results.id));
+    }
+
+
+    function getDetailsMovie(id) {
+
+        console.log("get Details");
+
+        theMovieDb.movies.getById({ language: "eng", id: id},
+            function(json) {
+                var movieResults = $.parseJSON(json);
+                
+
+            },
+            errorCB);
+
     }
 
 });
