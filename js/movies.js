@@ -62,7 +62,6 @@ $(document).ready(function() {
 
         var lookup = $('.lookup').val();
 
-        console.log("Click");
         var review = ($('#review').val());
         var date = ($('#start-date').val());
         // console.log(date);
@@ -70,7 +69,8 @@ $(document).ready(function() {
         var fullDate = moment(date).format('YYYY-MM-DD');
          console.log(fullDate);
         // console.log(year);
-        var title = ($('#search-text').val());
+        var title = $.trim($('#search-text').val());
+     
 
         //console.log(title);
         //create variables with search parameters
