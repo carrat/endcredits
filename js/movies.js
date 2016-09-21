@@ -8,15 +8,11 @@ function errorCB(data) {
 
 $(document).ready(function() {
 
-
-
 // Create dropdown select elements for form
-
     theMovieDb.genres.getList('',
         function(json) {
             var results = $.parseJSON(json);
             //console.log(results.genres);
-
             $.each(results.genres, function(index, genre) {
                 var option = $('<option>').attr('class', 'genre');
                 option.attr("id", " ");
@@ -25,43 +21,32 @@ $(document).ready(function() {
                 //console.log(this.name);
                 $('#genre-options').append(option);
             })
-
-            $('select').material_select();
-
+            $('select').material_select(); // activates materialize select box - will not work without this code
         },
         errorCB);
     //code to get genre options from db. 
-
     for (i = new Date().getFullYear(); i > 1900; i--) {
         $('#year-options').append($('<option />').val(i).html(i));
     }
-
     //code to populate years
 
     
     // record changes to Movie/TV Slider
     $('.lookup').change(function() {
-
         if ($('.lookup').val() === 'on') {
             $('.lookup').val('off');
         }
-
         else {
             $('.lookup').val('on');
         }
-
-        console.log($('.lookup').val());
-
     });
 
     $('#search').click(function() {
 
         $('#search-results-collection').empty();
-
         $('#search-results').show();
 
-        var lookup = $('.lookup').val();
-
+        var lookup = $('.lookup').val(); // slider to determine if search is for movies or TV
         var review = ($('#review').val());
         var date = ($('#start-date').val());
         // console.log(date);
@@ -70,7 +55,7 @@ $(document).ready(function() {
          console.log(fullDate);
         // console.log(year);
         var title = $.trim($('#search-text').val());
-     
+
 
         //console.log(title);
         //create variables with search parameters
@@ -85,48 +70,82 @@ $(document).ready(function() {
                 console.log(movieResult);
                     if ($.isEmptyObject(movieResult) == false) {
                         //  console.log(movieResult);    
-
                         $.each(movieResult, function(index, movie) {
-
                             console.log(this.title, this.id, this.poster_path, this.release_date, this.overview, this.vote_average);
                             outputSearchMovie(movie);
-                        });                 
-                            
+                        });                          
                     }
                 })
-
-
-                },
-                errorCB);
+            },
+            errorCB);
         } else {
             theMovieDb.discover.getTvShows({ language: "eng", review: review, title: title, first_air_date_year: year },
                 function(json) {
                     var movieResults = $.parseJSON(json);
                     $.each(movieResults.results, function(index, movieResult) {
                         console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
-
                         if ($.isEmptyObject(movieResult) == false) {
                         //  console.log(movieResult);    
-
-                        $.each(movieResult, function(index, movie) {
-
-                            console.log(this.title, this.id, this.poster_path, this.release_date, this.overview, this.vote_average);
-                            outputSearchTV(movie);
-                        });                 
-                            
-                    }
-
-
+                            $.each(movieResult, function(index, movie) {
+                                console.log(this.title, this.id, this.poster_path, this.release_date, this.overview, this.vote_average);
+                                outputSearchTV(movie);
+                            });                   
+                        }
                     })
-
                 },
                 errorCB);
         }
-
     });
 
 
     function outputSearchMovie(results) {
+    // create item for search results collection
+        resultsItem = $('<li>').attr('id', results.id);
+        $(resultsItem).html('<div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>' + results.title + '</div>')
+
+        itemBodyDiv = $('<div>').attr("class", "collapsible-body white-text").html("<p>" + results.overview + "</p>");
+        moreInfo = $('<a>').attr("class", "modal-trigger center-align more-info waves-effect").attr("href", "#modal-" + results.id).attr("data-id", results.id);
+        $(moreInfo).html("More Info");
+
+        $(itemBodyDiv).append(moreInfo);
+        $(resultsItem).append(itemBodyDiv);
+       
+        modalDiv = $('<div>').attr("id", "modal-"+ results.id).attr("class", "modal");
+
+        modalContentDiv = $('<div>').attr("class", "modal-content").html("<h4>"+ results.title + "</h4>");
+
+        if (results.poster_path !== null) {
+            modalImage = $('<img>').attr('class', 'movie-poster').attr('src', 'https://image.tmdb.org/t/p/w185_and_h278_bestv2/' +results.poster_path);
+            $(modalContentDiv).append(modalImage);
+        }
+        $(modalContentDiv).append('<p class="description">'+ results.overview + '</p>');
+
+        if (results.release_date !== '') {
+            $(modalContentDiv).append('<p class="releaseDate">Release Date: ' + moment(results.release_date).format("M/D/YYYY") + '</p>');
+        }
+        $(modalContentDiv).append('<p class="voteAverage">Rating: ' + results.vote_average + '</p>');
+        $(modalContentDiv).append('<p class="genres">Genre: ' + results.genre_ids + '</p>');
+
+        var guidebox = getGuideboxId(results.id);
+
+        var extendedJSON = getExtendedInfo(guidebox);
+
+ // now add trailer, streaming info, and additional fields to modalContentDiv
+ //
+ //
+ //
+
+        $(modalDiv).html(modalContentDiv);
+
+        $(resultsItem).append(modalDiv);
+    // write each item to collection
+        $('#search-results-collection').append(resultsItem);
+    // activate modal
+        $('.modal-trigger').leanModal();
+ 
+    }
+
+    function outputSearchTV(results) {
 
     // create item for search results collection
         resultsItem = $('<li>').attr('id', results.id);
@@ -162,51 +181,43 @@ $(document).ready(function() {
         $('#search-results-collection').append(resultsItem);
     // activate modal
         $('.modal-trigger').leanModal();
-
-      
-    }
-
-      function outputSearchTV(results) {
-
-    // create item for search results collection
-        resultsItem = $('<li>').attr('id', results.id);
-        $(resultsItem).html('<div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>' + results.title + '</div>')
-
-        itemBodyDiv = $('<div>').attr("class", "collapsible-body white-text").html("<p>" + results.overview + "</p>");
-        moreInfo = $('<a>').attr("class", "modal-trigger center-align more-info waves-effect").attr("href", "#modal-" + results.id).attr("data-id", results.id);
-        $(moreInfo).html("More Info");
-
-        $(itemBodyDiv).append(moreInfo);
-        $(resultsItem).append(itemBodyDiv);
-       
-        modalDiv = $('<div>').attr("id", "modal-"+ results.id).attr("class", "modal");
-
-        modalContentDiv = $('<div>').attr("class", "modal-content").html("<h4>"+ results.title + "</h4>");
-
-        if (results.poster_path !== null) {
-            modalImage = $('<img>').attr('class', 'movie-poster').attr('src', 'https://image.tmdb.org/t/p/w185_and_h278_bestv2/' +results.poster_path);
-            $(modalContentDiv).append(modalImage);
-        }
-        $(modalContentDiv).append('<p class="description">'+ results.overview + '</p>');
-
-        if (results.release_date !== '') {
-            $(modalContentDiv).append('<p class="releaseDate">Release Date: ' + moment(results.release_date).format("M/D/YYYY") + '</p>');
-        }
-        $(modalContentDiv).append('<p class="voteAverage">Rating: ' + results.vote_average + '</p>');
-        $(modalContentDiv).append('<p class="genres">Genre: ' + results.genre_ids + '</p>');
-
-        $(modalDiv).html(modalContentDiv);
-
-        $(resultsItem).append(modalDiv);
-    // write each item to collection
-        $('#search-results-collection').append(resultsItem);
-    // activate modal
-        $('.modal-trigger').leanModal();
-
-      
     }
 
 
-  
+    function getGuideboxId(id) {
+        // get the corresponding Guidebox ID from the themovieddb ID
+
+        var queryURL = "http://api-public.guidebox.com/v1.43/US/rKwkNTh5aiZK8KPTmhj7bdYPhqvJRg0q/search/movie/id/themoviedb/" + id; // search API
+
+        $.ajax({url: queryURL, method: 'GET'})
+            .done(function(response) {
+                var results = response.data; // this will 
+                var guideboxID = results.id;
+
+        });
+        
+        return guideboxID;
+    }
+
+
+    function getExtendedInfo(id) {
+
+    //Get extended info for a Movie or Episode from Guidebox and output to modal
+
+        var queryURL = "http://api-public.guidebox.com/v1.43/US/rKwkNTh5aiZK8KPTmhj7bdYPhqvJRg0q/movie/" + id; // search API
+        {Base API URL} /sources/all/ {"all", "movies" or "shows"}
+
+        $.ajax({url: queryURL, method: 'GET'})
+            .done(function(response) {
+                var results = response.data;
+
+        });
+        
+        return results
+    
+    }
+
+
+
 
 });
