@@ -126,9 +126,7 @@ $(document).ready(function() {
         $(modalContentDiv).append('<p class="voteAverage">Rating: ' + results.vote_average + '</p>');
         $(modalContentDiv).append('<p class="genres">Genre: ' + results.genre_ids + '</p>');
 
-        var guidebox = getGuideboxId(results.id);
 
-        var extendedJSON = getExtendedInfo(guidebox);
 
  // now add trailer, streaming info, and additional fields to modalContentDiv
  //
@@ -142,6 +140,8 @@ $(document).ready(function() {
         $('#search-results-collection').append(resultsItem);
     // activate modal
         $('.modal-trigger').leanModal();
+
+        $('.modal-trigger').on("click", getGuideboxId());
  
     }
 
@@ -184,19 +184,27 @@ $(document).ready(function() {
     }
 
 
-    function getGuideboxId(id) {
+    function getGuideboxId() {
         // get the corresponding Guidebox ID from the themovieddb ID
+
+        var id = $(this).attr("data-id");
+
+
 
         var queryURL = "http://api-public.guidebox.com/v1.43/US/rKwkNTh5aiZK8KPTmhj7bdYPhqvJRg0q/search/movie/id/themoviedb/" + id; // search API
 
-        $.ajax({url: queryURL, method: 'GET'})
+        $.ajax({
+            url: queryURL, 
+            method: 'GET'
+        })
             .done(function(response) {
                 var results = response.data; // this will 
-                var guideboxID = results.id;
+                var guideboxID = response.id;
+                getExtendedInfo(guideboxID);
 
         });
         
-        return guideboxID;
+       
     }
 
 
@@ -205,15 +213,16 @@ $(document).ready(function() {
     //Get extended info for a Movie or Episode from Guidebox and output to modal
 
         var queryURL = "http://api-public.guidebox.com/v1.43/US/rKwkNTh5aiZK8KPTmhj7bdYPhqvJRg0q/movie/" + id; // search API
-        {Base API URL} /sources/all/ {"all", "movies" or "shows"}
 
         $.ajax({url: queryURL, method: 'GET'})
             .done(function(response) {
                 var results = response.data;
 
+              return results
+
         });
         
-        return results
+      
     
     }
 
