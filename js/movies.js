@@ -54,6 +54,8 @@ $(document).ready(function() {
 
     $('#search').click(function() {
 
+        $('#search-results-collection').empty();
+
         var lookup = $('.lookup').val();
 
         console.log("Click");
@@ -78,8 +80,14 @@ $(document).ready(function() {
                 $.each(movieResults, function(index, movieResult) {
                 console.log(movieResult);
                     if ($.isEmptyObject(movieResult) == false) {
-                        //  console.log(movieResult);                     
+                        //  console.log(movieResult);    
+
+                        $.each(movieResult, function(index, movie) {
+
+                            console.log(this.title, this.id, this.poster_path, this.release_date, this.overview, this.vote_average);
                             outputSearchMovie(movie);
+                        });                 
+                            
                     }
                 })
 
@@ -109,22 +117,10 @@ $(document).ready(function() {
 
         $('.modal-trigger').leanModal();
 
-        $('.modal-trigger').click(getDetailsMovie(results.id));
+      
     }
 
 
-    function getDetailsMovie(id) {
-
-        console.log("get Details");
-
-        theMovieDb.movies.getById({ language: "eng", id: id},
-            function(json) {
-                var movieResults = $.parseJSON(json);
-                
-
-            },
-            errorCB);
-
-    }
+  
 
 });
