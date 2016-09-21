@@ -58,6 +58,8 @@ $(document).ready(function() {
 
         $('#search-results-collection').empty();
 
+        $('#search-results').show();
+
         var lookup = $('.lookup').val();
 
         console.log("Click");

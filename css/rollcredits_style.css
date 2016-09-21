@@ -69,6 +69,7 @@ h4.search-title {
 #search-results {
 
 	padding-right: 50px;
+	display: none;
 }
 
 form {
