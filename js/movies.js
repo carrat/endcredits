@@ -38,6 +38,8 @@ $(document).ready(function() {
 
     //code to populate years
 
+    
+    // record changes to Movie/TV Slider
     $('.lookup').change(function() {
 
         if ($('.lookup').val() === 'on') {
@@ -100,6 +102,19 @@ $(document).ready(function() {
                     var movieResults = $.parseJSON(json);
                     $.each(movieResults.results, function(index, movieResult) {
                         console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
+
+                        if ($.isEmptyObject(movieResult) == false) {
+                        //  console.log(movieResult);    
+
+                        $.each(movieResult, function(index, movie) {
+
+                            console.log(this.title, this.id, this.poster_path, this.release_date, this.overview, this.vote_average);
+                            outputSearchTV(movie);
+                        });                 
+                            
+                    }
+
+
                     })
 
                 },
@@ -110,6 +125,8 @@ $(document).ready(function() {
 
 
     function outputSearchMovie(results) {
+
+    // create item for search results collection
         resultsItem = $('<li>').attr('id', results.id);
         $(resultsItem).html('<div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>' + results.title + '</div>')
 
@@ -120,27 +137,68 @@ $(document).ready(function() {
         $(itemBodyDiv).append(moreInfo);
         $(resultsItem).append(itemBodyDiv);
        
-
         modalDiv = $('<div>').attr("id", "modal-"+ results.id).attr("class", "modal");
 
         modalContentDiv = $('<div>').attr("class", "modal-content").html("<h4>"+ results.title + "</h4>");
-        modalImage = $('<img>').attr('class', 'movie-poster').attr('src', 'https://image.tmdb.org/t/p/w185_and_h278_bestv2/' +results.poster_path);
-        $(modalContentDiv).append(modalImage);
+
+        if (results.poster_path !== null) {
+            modalImage = $('<img>').attr('class', 'movie-poster').attr('src', 'https://image.tmdb.org/t/p/w185_and_h278_bestv2/' +results.poster_path);
+            $(modalContentDiv).append(modalImage);
+        }
         $(modalContentDiv).append('<p class="description">'+ results.overview + '</p>');
-        $(modalContentDiv).append('<p class="releaseDate">Release Date: ' + moment(results.release_date).format("M/D/YYYY") + '</p>');
+
+        if (results.release_date !== '') {
+            $(modalContentDiv).append('<p class="releaseDate">Release Date: ' + moment(results.release_date).format("M/D/YYYY") + '</p>');
+        }
         $(modalContentDiv).append('<p class="voteAverage">Rating: ' + results.vote_average + '</p>');
         $(modalContentDiv).append('<p class="genres">Genre: ' + results.genre_ids + '</p>');
 
         $(modalDiv).html(modalContentDiv);
 
         $(resultsItem).append(modalDiv);
-
-
-
-
-
+    // write each item to collection
         $('#search-results-collection').append(resultsItem);
+    // activate modal
+        $('.modal-trigger').leanModal();
 
+      
+    }
+
+      function outputSearchTV(results) {
+
+    // create item for search results collection
+        resultsItem = $('<li>').attr('id', results.id);
+        $(resultsItem).html('<div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>' + results.title + '</div>')
+
+        itemBodyDiv = $('<div>').attr("class", "collapsible-body white-text").html("<p>" + results.overview + "</p>");
+        moreInfo = $('<a>').attr("class", "modal-trigger center-align more-info waves-effect").attr("href", "#modal-" + results.id).attr("data-id", results.id);
+        $(moreInfo).html("More Info");
+
+        $(itemBodyDiv).append(moreInfo);
+        $(resultsItem).append(itemBodyDiv);
+       
+        modalDiv = $('<div>').attr("id", "modal-"+ results.id).attr("class", "modal");
+
+        modalContentDiv = $('<div>').attr("class", "modal-content").html("<h4>"+ results.title + "</h4>");
+
+        if (results.poster_path !== null) {
+            modalImage = $('<img>').attr('class', 'movie-poster').attr('src', 'https://image.tmdb.org/t/p/w185_and_h278_bestv2/' +results.poster_path);
+            $(modalContentDiv).append(modalImage);
+        }
+        $(modalContentDiv).append('<p class="description">'+ results.overview + '</p>');
+
+        if (results.release_date !== '') {
+            $(modalContentDiv).append('<p class="releaseDate">Release Date: ' + moment(results.release_date).format("M/D/YYYY") + '</p>');
+        }
+        $(modalContentDiv).append('<p class="voteAverage">Rating: ' + results.vote_average + '</p>');
+        $(modalContentDiv).append('<p class="genres">Genre: ' + results.genre_ids + '</p>');
+
+        $(modalDiv).html(modalContentDiv);
+
+        $(resultsItem).append(modalDiv);
+    // write each item to collection
+        $('#search-results-collection').append(resultsItem);
+    // activate modal
         $('.modal-trigger').leanModal();
 
       
