@@ -111,7 +111,33 @@ $(document).ready(function() {
 
     function outputSearchMovie(results) {
         resultsItem = $('<li>').attr('id', results.id);
-        $(resultsItem).html('<div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>' + results.title + '</div><div class="collapsible-body white-text"><p>' +  results.overview +'</p> <p><a class="modal-trigger center-align more-info waves-effect" href="#modal-' + results.id + '" data-id="' + results.id + '">More Info</a></p></div><div id="modal-' + results.id + '" class="modal"><div class="modal-content"><h4>' + results.title + '</h4><p><img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/'+results.poster_path + '" class="movie-poster">' + results.description + '</p><hr><p>Release Date: ' + results.release_date + '</p></div></div>')
+        $(resultsItem).html('<div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>' + results.title + '</div>')
+
+        itemBodyDiv = $('<div>').attr("class", "collapsible-body white-text").html("<p>" + results.overview + "</p>");
+        moreInfo = $('<a>').attr("class", "modal-trigger center-align more-info waves-effect").attr("href", "#modal-" + results.id).attr("data-id", results.id);
+        $(moreInfo).html("More Info");
+
+        $(itemBodyDiv).append(moreInfo);
+        $(resultsItem).append(itemBodyDiv);
+       
+
+        modalDiv = $('<div>').attr("id", "modal-"+ results.id).attr("class", "modal");
+
+        modalContentDiv = $('<div>').attr("class", "modal-content").html("<h4>"+ results.title + "</h4>");
+        modalImage = $('<img>').attr('class', 'movie-poster').attr('src', 'https://image.tmdb.org/t/p/w185_and_h278_bestv2/' +results.poster_path);
+        $(modalContentDiv).append(modalImage);
+        $(modalContentDiv).append('<p class="description">'+ results.overview + '</p>');
+        $(modalContentDiv).append('<p class="releaseDate">Release Date: ' + moment(results.release_date).format("M/D/YYYY") + '</p>');
+        $(modalContentDiv).append('<p class="voteAverage">Rating: ' + results.vote_average + '</p>');
+        $(modalContentDiv).append('<p class="genres">Genre: ' + results.genre_ids + '</p>');
+
+        $(modalDiv).html(modalContentDiv);
+
+        $(resultsItem).append(modalDiv);
+
+
+
+
 
         $('#search-results-collection').append(resultsItem);
 
