@@ -122,7 +122,9 @@ nav {
 	margin-right: 30px;
 	margin-bottom: 30px;
 }
-
+.modal {
+	background: rgba(255,255,255,1);
+}
 footer.page-footer {
 	margin-top: 0px;
 	padding-top: 0px;

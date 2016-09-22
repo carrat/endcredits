@@ -129,8 +129,13 @@ $(document).ready(function() {
         $(modalContentDiv).append('<p class="voteAverage">Rating: ' + results.vote_average + '</p>');
         $(modalContentDiv).append('<p class="genres">Genre: ' + results.genre_ids + '</p>');
 
+        castDiv = $('<div>').attr("class", "modal-cast");
+        $(modalContentDiv).append(castDiv);
+
         trailerDiv = $('<div>').attr("class", "modal-trailer");
         $(modalContentDiv).append(trailerDiv);
+
+
 
 
 
@@ -218,8 +223,11 @@ $(document).ready(function() {
                 var results = response.data; // this will 
                 var guideboxID = response.id;
 
+                $('.modal-cast').empty();
+                $('.modal-trailer').empty();
+
                 if (guideboxID) {
-                    
+
                     getExtendedInfo(guideboxID);
 
                 }
@@ -239,13 +247,15 @@ $(document).ready(function() {
 
         var queryURL = "http://api-public.guidebox.com/v1.43/US/rKwkNTh5aiZK8KPTmhj7bdYPhqvJRg0q/movie/" + id; // search API
 
+                cast = '';
+                castArray =[];
+                
+
         $.ajax({url: queryURL, method: 'GET'})
             .done(function(response) {
                 var extendedResults = response;
 
-                console.log(extendedResults.overview);
-
-                $('.modal-trailer').empty();
+                
 
                 if (extendedResults.trailers.web) {
 
@@ -253,9 +263,20 @@ $(document).ready(function() {
 
                 }
 
-                
 
-              return extendedResults
+                cast = extendedResults.cast;
+
+                console.log("Cast: " + cast[0].name);
+
+                for (i=0; i < cast.length; i++) {
+                    castName = " " + cast[i].name;
+                    castArray.push(castName);
+                }
+
+                console.log("Cast Array: " + castArray);
+
+                $('.modal-cast').html("Cast: " + castArray);
+            
 
         });
         
