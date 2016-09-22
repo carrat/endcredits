@@ -62,6 +62,10 @@ $(document).ready(function() {
         // console.log(year);
         var title = $.trim($('#search-text').val());
 
+        $('.results-title').html('<h4>Search Results for "' + title + '"</h4>');
+
+        $('#search-text').val('');
+
 
         //console.log(title);
         //create variables with search parameters
