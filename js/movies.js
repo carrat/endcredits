@@ -8,6 +8,9 @@ function errorCB(data) {
 
 $(document).ready(function() {
 
+
+    $(document).on("click", '.more-info', getGuideboxId);
+
 // Create dropdown select elements for form
     theMovieDb.genres.getList('',
         function(json) {
@@ -126,6 +129,9 @@ $(document).ready(function() {
         $(modalContentDiv).append('<p class="voteAverage">Rating: ' + results.vote_average + '</p>');
         $(modalContentDiv).append('<p class="genres">Genre: ' + results.genre_ids + '</p>');
 
+        trailerDiv = $('<div>').attr("class", "modal-trailer");
+        $(modalContentDiv).append(trailerDiv);
+
 
 
  // now add trailer, streaming info, and additional fields to modalContentDiv
@@ -141,7 +147,9 @@ $(document).ready(function() {
     // activate modal
         $('.modal-trigger').leanModal();
 
-        $('.modal-trigger').on("click", getGuideboxId());
+         
+
+        
  
     }
 
@@ -172,7 +180,10 @@ $(document).ready(function() {
             $(modalContentDiv).append('<p class="releaseDate">Release Date: ' + moment(results.release_date).format("M/D/YYYY") + '</p>');
         }
         $(modalContentDiv).append('<p class="voteAverage">Rating: ' + results.vote_average + '</p>');
-        $(modalContentDiv).append('<p class="genres">Genre: ' + results.genre_ids + '</p>');
+        trailerDiv = $('<div>').attr("class", "modal-trailer");
+        $(modalContentDiv).append(trailerDiv);
+
+        //$(modalContentDiv).append('<p class="genres">Genre: ' + results.genre_ids + '</p>');
 
         $(modalDiv).html(modalContentDiv);
 
@@ -181,29 +192,43 @@ $(document).ready(function() {
         $('#search-results-collection').append(resultsItem);
     // activate modal
         $('.modal-trigger').leanModal();
+
+
     }
 
 
     function getGuideboxId() {
         // get the corresponding Guidebox ID from the themovieddb ID
 
+
+
         var id = $(this).attr("data-id");
-
-
+        $('.modal-trailer').empty();
+        
 
         var queryURL = "http://api-public.guidebox.com/v1.43/US/rKwkNTh5aiZK8KPTmhj7bdYPhqvJRg0q/search/movie/id/themoviedb/" + id; // search API
+
+        console.log("Query URL: " + queryURL);
 
         $.ajax({
             url: queryURL, 
             method: 'GET'
-        })
+            })
             .done(function(response) {
                 var results = response.data; // this will 
                 var guideboxID = response.id;
-                getExtendedInfo(guideboxID);
+
+                if (guideboxID) {
+                    
+                    getExtendedInfo(guideboxID);
+
+                }
 
         });
-        
+
+
+
+
        
     }
 
@@ -216,9 +241,21 @@ $(document).ready(function() {
 
         $.ajax({url: queryURL, method: 'GET'})
             .done(function(response) {
-                var results = response.data;
+                var extendedResults = response;
 
-              return results
+                console.log(extendedResults.overview);
+
+                $('.modal-trailer').empty();
+
+                if (extendedResults.trailers.web) {
+
+                $('.modal-trailer').html('<p>Trailer:</p>  <iframe width="320" height="180" src="' + extendedResults.trailers.web[0].embed + '&width=320&height=180" frameborder="0" allowfullscreen></iframe>');
+
+                }
+
+                
+
+              return extendedResults
 
         });
         
