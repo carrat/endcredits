@@ -87,7 +87,7 @@ $(document).ready(function() {
 	          			tvResultsModal[0].querySelector('.movie-poster').src = "https://image.tmdb.org/t/p/w600_and_h900_bestv2" + this.poster_path;
 	          			$('.group-results').append(tvResults);
 	          			$('.group-results').append(tvResultsModal);
-                        
+                        //test
                     })
                          $('.modal-trigger').leanModal();
                 },
