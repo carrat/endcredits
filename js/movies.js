@@ -60,7 +60,7 @@ $(document).ready(function() {
         // console.log(date);
         var year = moment(date).format('YYYY');
         // console.log(year);
-        var title = $.trim($('#search-text').val());
+        var title = encodeURIComponent($.trim($('#search-text').val()));
         var genre = $('.genre-options').val();
 
        // $('.results-title').html('<h4>Search Results for "' + title + '"</h4>');
@@ -88,8 +88,6 @@ $(document).ready(function() {
                             console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
                             var tvResults = $('#results-clone').clone();
                             tvResults.attr("id", "");
-                            var tvResultsModal = $('#modal-clone').clone();
-                            tvResultsModal.attr("id", "");
                             tvResults[0].querySelector('.results-header').innerHTML = this.title;
                             tvResults[0].querySelector('.overview').innerHTML = this.overview;
                             $('.group-results').append(tvResults);
@@ -111,8 +109,6 @@ $(document).ready(function() {
                              console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
                              var tvResults = $('#results-clone').clone();
                              tvResults.attr("id", "");
-                             var tvResultsModal = $('#modal-clone').clone();
-                             tvResultsModal.attr("id", "");
                              tvResults[0].querySelector('.results-header').innerHTML = this.title;
                              tvResults[0].querySelector('.overview').innerHTML = this.overview;
                              $('.group-results').append(tvResults);
@@ -140,8 +136,6 @@ $(document).ready(function() {
                             console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
                             var tvResults = $('#results-clone').clone();
                             tvResults.attr("id", "");
-                            var tvResultsModal = $('#modal-clone').clone();
-                            tvResultsModal.attr("id", "");
                             tvResults[0].querySelector('.results-header').innerHTML = this.name;
                             tvResults[0].querySelector('.overview').innerHTML = this.overview;
                             $('.group-results').append(tvResults);
@@ -155,7 +149,7 @@ $(document).ready(function() {
             }
             else {
                 theMovieDb.search.getTv({
-                        language: "eng",
+                     //   language: "eng",
                         query: title,
                         first_air_date_year: year
                     },
@@ -167,11 +161,8 @@ $(document).ready(function() {
                             console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
                             var tvResults = $('#results-clone').clone();
                             tvResults.attr("id", "");
-                            var tvResultsModal = $('#modal-clone').clone();
-                            tvResultsModal.attr("id", "");
                             tvResults[0].querySelector('.results-header').innerHTML = this.name;
                             tvResults[0].querySelector('.overview').innerHTML = this.overview;
-                            tvResultsModal[0].querySelector('.movie-poster').src = "https://image.tmdb.org/t/p/w600_and_h900_bestv2" + this.poster_path;
                             $('.group-results').append(tvResults);
                             //  $('.group-results').append(tvResultsModal);
 
