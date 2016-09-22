@@ -150,6 +150,12 @@ h4 {
 	font-weight: 300;
 }
 
+h5 {
+	font-size: 1.3rem;
+	font-weight: 100;
+
+}
+
 .row {
 	margin-bottom: 0px;
 }
