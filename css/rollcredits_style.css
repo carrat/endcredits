@@ -132,6 +132,10 @@ nav {
 .modal {
 	background: rgba(255,255,255,1);
 }
+
+.modal-content h4 {
+	font-size: 3rem;
+}
 footer.page-footer {
 	margin-top: 0px;
 	padding-top: 0px;

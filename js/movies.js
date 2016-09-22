@@ -122,7 +122,13 @@ $(document).ready(function() {
     function outputSearchMovie(results) {
         // create item for search results collection
         resultsItem = $('<li>').attr('id', results.id);
-        $(resultsItem).html('<div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>' + results.title + '</div>')
+        if (results.release_date) {
+            releaseYear = ' (' +moment(results.release_date).format("YYYY") + ')';
+        }
+        else {
+            releaseYear = '';
+        }
+        $(resultsItem).html('<div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>' + results.title + releaseYear + '</div>')
 
         itemBodyDiv = $('<div>').attr("class", "collapsible-body white-text").html("<p>" + results.overview + "</p>");
         moreInfo = $('<a>').attr("class", "modal-trigger center-align more-info waves-effect").attr("href", "#modal-" + results.id).attr("data-id", results.id);
@@ -144,18 +150,24 @@ $(document).ready(function() {
         if (results.release_date !== '') {
             $(modalContentDiv).append('<p class="releaseDate"><strong>Release Date:</strong> ' + moment(results.release_date).format("M/D/YYYY") + '</p>');
         }
-        $(modalContentDiv).append('<p class="voteAverage"><strong>Rating:</strong> ' + results.vote_average + '</p>');
+        $(modalContentDiv).append('<p class="voteAverage"><strong>Rating:</strong> ' + results.vote_average + ' / 10</p>');
 
         $(modalDiv).html(modalContentDiv);
 
         genreDiv = $('<div>').attr("class", "modal-genre");
         $(modalContentDiv).append(genreDiv);
 
+        directorsDiv = $('<div>').attr("class", "modal-directors");
+        $(modalContentDiv).append(directorsDiv);
+
         castDiv = $('<div>').attr("class", "modal-cast");
         $(modalContentDiv).append(castDiv);
 
         trailerDiv = $('<div>').attr("class", "modal-trailer");
         $(modalContentDiv).append(trailerDiv);
+
+        purchaseWebDiv = $('<div>').attr("class", "modal-purchaseWeb");
+        $(modalContentDiv).append(purchaseWebDiv);
 
 
         $(resultsItem).append(modalDiv);
@@ -200,6 +212,9 @@ $(document).ready(function() {
         genreDiv = $('<div>').attr("class", "modal-genre");
         $(modalContentDiv).append(genreDiv);
 
+        directorsDiv = $('<div>').attr("class", "modal-directors");
+        $(modalContentDiv).append(directorsDiv);
+
         castDiv = $('<div>').attr("class", "modal-cast");
         $(modalContentDiv).append(castDiv);
 
@@ -233,6 +248,8 @@ $(document).ready(function() {
                 $('.modal-cast').empty();
                 $('.modal-trailer').empty();
                 $('.modal-genre').empty();
+                $('.modal-purchaseWeb').empty();
+                $('.modal-directors').empty();
 
                 if (guideboxID) {
                     getExtendedInfo(guideboxID);
@@ -249,6 +266,9 @@ $(document).ready(function() {
         castArray =[];
         genres = '';
         genreArray = [];
+        purchaseWebArray = [];
+        directors = '';
+        directorsArray = [];
                 
         $.ajax({url: queryURL, method: 'GET'})
             .done(function(response) {
@@ -257,6 +277,14 @@ $(document).ready(function() {
                 if (extendedResults.trailers.web) {
                     $('.modal-trailer').html('<p><strong>Trailer:</strong></p>  <iframe width="320" height="180" src="' + extendedResults.trailers.web[0].embed + '&width=320&height=180" frameborder="0" allowfullscreen></iframe>');
                 }
+
+                directors = extendedResults.directors;
+                for (i=0; i < directors.length; i++) {
+                    directorName = " " + directors[i].name;
+                    directorsArray.push(directorName);
+                }
+
+                $('.modal-directors').html("<p><strong>Director:</strong> " + directorsArray + "</p>");
 
                 cast = extendedResults.cast;
                 for (i=0; i < cast.length; i++) {
@@ -273,6 +301,17 @@ $(document).ready(function() {
                 }
 
                 $('.modal-genre').html("<p><strong>Genre:</strong> " + genreArray + "</p>");
+
+                purchaseWeb = extendedResults.purchase_web_sources;
+                for (i=0; i < purchaseWeb.length; i++) {
+                    purchaseWebName = " " + purchaseWeb[i].display_name;
+                    purchaseWebLink = purchaseWeb[i].link;
+                    purchaseWebObject = '<a href="' + purchaseWebLink + '"</a>' + purchaseWebName + '</a>';
+                    purchaseWebArray.push(purchaseWebObject);
+                }
+
+                $('.modal-purchaseWeb').html("<p><strong>Rent or Buy:</strong> " + purchaseWebArray + "</p>");
+
 
         });
     
