@@ -72,21 +72,29 @@ $(document).ready(function() {
         // theMovieDb.discover.getMovies({language: "eng",review: review, title: title }, successCB, errorCB);
         //code to discover movies
 
+       // theMovieDb.search.getMovie({ language: "eng", review: review, query: title},
+        //search code for movies
+
         if (lookup === 'on') {
-            theMovieDb.search.getMovie({ language: "eng", review: review, query: title},
+            theMovieDb.discover.getMovies({ language: "eng", review: review, primary_release_date: year},
                 function (json) {
                     var movieResults = $.parseJSON(json);
+                    $('.group-results').html();
+                    $.each(movieResults.results, function (index, movieResult) {
+                          console.log(movieResult);
+                        console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
+                        var tvResults = $('#results-clone').clone();
+                        tvResults.attr("id", "");
+                        var tvResultsModal = $('#modal-clone').clone();
+                        tvResultsModal.attr("id", "");
+                        tvResults[0].querySelector('.results-header').innerHTML = this.title;
+                        tvResults[0].querySelector('.overview').innerHTML = this.overview;
+                        $('.group-results').append(tvResults);
 
-                    $.each(movieResults, function (index, movieResult) {
-                        if ($.isEmptyObject(movieResult) == false) {
-                            $.each(movieResult, function (index, movie) {
-                                console.log(this.title, this.id, this.poster_path, this.release_date, this.overview, this.vote_average);
-                                outputSearchMovie(movie);
-                            });
-                        }
                     })
                 },
-            errorCB);
+            errorCB
+            );
 
         }
 
@@ -114,7 +122,8 @@ $(document).ready(function() {
 
                     })
                     $('.modal-trigger').leanModal();
-                }
+                },
+                errorCB
             );
         }
     });
