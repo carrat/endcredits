@@ -172,6 +172,9 @@ $(document).ready(function() {
         streamWebDiv = $('<div>').attr("class", "modal-streamWeb");
         $(modalContentDiv).append(streamWebDiv);
 
+        freeStreamWebDiv = $('<div>').attr("class", "modal-freeStreamWeb");
+        $(modalContentDiv).append(freeStreamWebDiv);
+
 
         $(resultsItem).append(modalDiv);
         // write each item to collection
@@ -264,22 +267,19 @@ $(document).ready(function() {
 
     function getExtendedInfo(id) {
         //Get extended info for a Movie or Episode from Guidebox and output to modal
-
         var queryURL = "http://api-public.guidebox.com/v1.43/US/rKwkNTh5aiZK8KPTmhj7bdYPhqvJRg0q/movie/" + id; // search API
-        cast = '';
         castArray =[];
-        genres = '';
         genreArray = [];
         purchaseWebArray = [];
-        directors = '';
         directorsArray = [];
         streamWebArray = [];
+        freeStreamWebArray = [];
                 
         $.ajax({url: queryURL, method: 'GET'})
             .done(function(response) {
                 var extendedResults = response;
 
-                if (extendedResults.trailers.web) {
+                if (extendedResults.trailers.web.length > 0) {
                     $('.modal-trailer').html('<p><strong>Trailer:</strong></p>  <iframe width="320" height="180" src="' + extendedResults.trailers.web[0].embed + '&width=320&height=180" frameborder="0" allowfullscreen></iframe>');
                 }
 
@@ -307,7 +307,7 @@ $(document).ready(function() {
 
                 $('.modal-genre').html("<p><strong>Genre:</strong> " + genreArray + "</p>");
 
-                if (extendedResults.purchase_web_sources) {
+                if (extendedResults.purchase_web_sources.length > 0) {
                     purchaseWeb = extendedResults.purchase_web_sources;
                     for (i=0; i < purchaseWeb.length; i++) {
                         purchaseWebName = " " + purchaseWeb[i].display_name;
@@ -318,7 +318,7 @@ $(document).ready(function() {
                     $('.modal-purchaseWeb').html("<p><strong>Rent or Buy:</strong> " + purchaseWebArray + "</p>");
                 }
 
-                if (extendedResults.tv_everywhere_web_sources) {
+                if (extendedResults.tv_everywhere_web_sources.length > 0) {
                     streamWeb = extendedResults.tv_everywhere_web_sources;
                     for (i=0; i < streamWeb.length; i++) {
                         streamWebName = " " + streamWeb[i].display_name;
@@ -329,12 +329,18 @@ $(document).ready(function() {
                     $('.modal-streamWeb').html("<p><strong>Stream:</strong> " + streamWebArray + "</p>");
                 }
 
-
+                if (extendedResults.free_web_sources.length > 0) {
+                    freeStreamWeb = extendedResults.free_web_sources;
+                    for (i=0; i < freeStreamWeb.length; i++) {
+                        freeStreamWebName = " " + freeStreamWeb[i].display_name;
+                        freeStreamWebLink = freeStreamWeb[i].link;
+                        freeStreamWebObject = '<a href="' + freeStreamWebLink + '"</a>' + freeStreamWebName + '</a>';
+                        freeStreamWebArray.push(freeStreamWebObject);
+                    }
+                    $('.modal-freeStreamWeb').html("<p><strong>Stream for free:</strong> " + freeStreamWebArray + "</p>");
+                }
         });
     
     }
-
-
-
-         
+      
 });
