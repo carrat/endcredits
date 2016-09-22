@@ -169,6 +169,9 @@ $(document).ready(function() {
         purchaseWebDiv = $('<div>').attr("class", "modal-purchaseWeb");
         $(modalContentDiv).append(purchaseWebDiv);
 
+        streamWebDiv = $('<div>').attr("class", "modal-streamWeb");
+        $(modalContentDiv).append(streamWebDiv);
+
 
         $(resultsItem).append(modalDiv);
         // write each item to collection
@@ -250,6 +253,7 @@ $(document).ready(function() {
                 $('.modal-genre').empty();
                 $('.modal-purchaseWeb').empty();
                 $('.modal-directors').empty();
+                $('.modal-streamWeb').empty();
 
                 if (guideboxID) {
                     getExtendedInfo(guideboxID);
@@ -269,6 +273,7 @@ $(document).ready(function() {
         purchaseWebArray = [];
         directors = '';
         directorsArray = [];
+        streamWebArray = [];
                 
         $.ajax({url: queryURL, method: 'GET'})
             .done(function(response) {
@@ -302,15 +307,27 @@ $(document).ready(function() {
 
                 $('.modal-genre').html("<p><strong>Genre:</strong> " + genreArray + "</p>");
 
-                purchaseWeb = extendedResults.purchase_web_sources;
-                for (i=0; i < purchaseWeb.length; i++) {
-                    purchaseWebName = " " + purchaseWeb[i].display_name;
-                    purchaseWebLink = purchaseWeb[i].link;
-                    purchaseWebObject = '<a href="' + purchaseWebLink + '"</a>' + purchaseWebName + '</a>';
-                    purchaseWebArray.push(purchaseWebObject);
+                if (extendedResults.purchase_web_sources) {
+                    purchaseWeb = extendedResults.purchase_web_sources;
+                    for (i=0; i < purchaseWeb.length; i++) {
+                        purchaseWebName = " " + purchaseWeb[i].display_name;
+                        purchaseWebLink = purchaseWeb[i].link;
+                        purchaseWebObject = '<a href="' + purchaseWebLink + '"</a>' + purchaseWebName + '</a>';
+                        purchaseWebArray.push(purchaseWebObject);
+                    }
+                    $('.modal-purchaseWeb').html("<p><strong>Rent or Buy:</strong> " + purchaseWebArray + "</p>");
                 }
 
-                $('.modal-purchaseWeb').html("<p><strong>Rent or Buy:</strong> " + purchaseWebArray + "</p>");
+                if (extendedResults.tv_everywhere_web_sources) {
+                    streamWeb = extendedResults.tv_everywhere_web_sources;
+                    for (i=0; i < streamWeb.length; i++) {
+                        streamWebName = " " + streamWeb[i].display_name;
+                        streamWebLink = streamWeb[i].link;
+                        streamWebObject = '<a href="' + streamWebLink + '"</a>' + streamWebName + '</a>';
+                        streamWebArray.push(streamWebObject);
+                    }
+                    $('.modal-streamWeb').html("<p><strong>Stream:</strong> " + streamWebArray + "</p>");
+                }
 
 
         });
