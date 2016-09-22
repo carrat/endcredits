@@ -79,7 +79,11 @@
 
           <h4 class="white-text results-title">Search Results</h4>
 
+<<<<<<< HEAD
           <ul class="collapsible group-results" data-collapsible="accordion">
+=======
+          <ul class="collapsible" data-collapsible="accordion" id="search-results-collection">
+>>>>>>> master
            
           </ul>
         </div>
@@ -176,6 +180,7 @@
       </div>
 
     </div>
+<<<<<<< HEAD
 
 <!--hidden elements for cloning results-->
 
@@ -209,6 +214,9 @@
               <p><a class="modal-trigger center-align more-info waves-effect" href="#modal3">More Info</a></p></div>
             </li>
       </div>
+=======
+      
+>>>>>>> master
   </main>
 
   <footer class="page-footer deep-orange darken-4 hide-on-small-only z-depth-1">

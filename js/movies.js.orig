@@ -14,14 +14,25 @@ $(document).ready(function() {
             var results = $.parseJSON(json);
             //console.log(results.genres);
             $.each(results.genres, function(index, genre) {
+<<<<<<< HEAD
+                var option = $('#default-genre-option').clone();
+                option.attr("id", "");
+=======
                 var option = $('<option>').attr('class', 'genre');
                 option.attr("id", " ");
+>>>>>>> master
                 option.val(this.id);
                 option.html(this.name);
                 //console.log(this.name);
                 $('#genre-options').append(option);
             })
+<<<<<<< HEAD
+
+             $('select').material_select();
+
+=======
             $('select').material_select(); // activates materialize select box - will not work without this code
+>>>>>>> master
         },
         errorCB);
     //code to get genre options from db. 
@@ -31,6 +42,20 @@ $(document).ready(function() {
     //code to populate years
     
      $('.lookup').change(function() {
+
+        if ($('.lookup').val() === 'on') {
+            $('.lookup').val('off');
+        }
+
+        else {
+            $('.lookup').val('on');
+        }
+
+        console.log($('.lookup').val());
+
+    });
+
+    
 
     
     // record changes to Movie/TV Slider
@@ -83,6 +108,11 @@ $(document).ready(function() {
                 function(json) {
                     var movieResults = $.parseJSON(json);
                     $.each(movieResults.results, function(index, movieResult) {
+<<<<<<< HEAD
+                        //  console.log(movieResult);
+                        console.log(this.title, this.id, this.poster_path, this.release_date, this.overview, this.vote_average);
+
+=======
                         console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
                         if ($.isEmptyObject(movieResult) == false) {
                         //  console.log(movieResult);    
@@ -91,6 +121,7 @@ $(document).ready(function() {
                                 outputSearchTV(movie);
                             });                   
                         }
+>>>>>>> master
                     })
                 },
                 errorCB);
@@ -98,6 +129,33 @@ $(document).ready(function() {
     });
 
 
+<<<<<<< HEAD
+        } else {
+            theMovieDb.discover.getTvShows({ language: "eng", review: review, title: title, first_air_date_year: year },
+                function(json) {
+                    var movieResults = $.parseJSON(json);
+                    $('.group-results').html('');
+                    $.each(movieResults.results, function(index, movieResult) {
+                        //  console.log(movieResult);
+                        console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
+                   	 	var tvResults = $('#results-clone').clone();
+                   	 	tvResults.attr("id","");
+	          			var tvResultsModal = $('#modal-clone').clone();
+	          			tvResultsModal.attr("id","");
+	          			tvResults[0].querySelector('.results-header').innerHTML = this.name;
+	          			tvResults[0].querySelector('.overview').innerHTML = this.overview;
+	          			tvResultsModal[0].querySelector('.movie-poster').src = "https://image.tmdb.org/t/p/w600_and_h900_bestv2" + this.poster_path;
+	          			$('.group-results').append(tvResults);
+	          			$('.group-results').append(tvResultsModal);
+                        
+                    })
+                         $('.modal-trigger').leanModal();
+                },
+
+                errorCB);
+
+
+=======
     function outputSearchMovie(results) {
     // create item for search results collection
         resultsItem = $('<li>').attr('id', results.id);
@@ -117,6 +175,7 @@ $(document).ready(function() {
         if (results.poster_path !== null) {
             modalImage = $('<img>').attr('class', 'movie-poster').attr('src', 'https://image.tmdb.org/t/p/w185_and_h278_bestv2/' +results.poster_path);
             $(modalContentDiv).append(modalImage);
+>>>>>>> master
         }
         $(modalContentDiv).append('<p class="description">'+ results.overview + '</p>');
 

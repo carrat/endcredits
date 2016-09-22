@@ -29,8 +29,6 @@ $(document).ready(function() {
         $('#year-options').append($('<option />').val(i).html(i));
     }
     //code to populate years
-    
-     $('.lookup').change(function() {
 
     
     // record changes to Movie/TV Slider
@@ -53,6 +51,8 @@ $(document).ready(function() {
         var date = ($('#start-date').val());
         // console.log(date);
         var year = moment(date).format('YYYY');
+        var fullDate = moment(date).format('YYYY-MM-DD');
+         console.log(fullDate);
         // console.log(year);
         var title = $.trim($('#search-text').val());
 
