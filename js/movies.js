@@ -62,7 +62,7 @@ $(document).ready(function() {
         // console.log(year);
         var title = $.trim($('#search-text').val());
 
-        $('.results-title').html('<h4>Search Results for "' + title + '"</h4>');
+       // $('.results-title').html('<h4>Search Results for "' + title + '"</h4>');
 
         $('#search-text').val('');
 
@@ -72,59 +72,114 @@ $(document).ready(function() {
         // theMovieDb.discover.getMovies({language: "eng",review: review, title: title }, successCB, errorCB);
         //code to discover movies
 
-       // theMovieDb.search.getMovie({ language: "eng", review: review, query: title},
-        //search code for movies
-
         if (lookup === 'on') {
-            theMovieDb.discover.getMovies({ language: "eng", review: review, primary_release_date: year},
-                function (json) {
-                    var movieResults = $.parseJSON(json);
-                    $('.group-results').html();
-                    $.each(movieResults.results, function (index, movieResult) {
-                          console.log(movieResult);
-                        console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
-                        var tvResults = $('#results-clone').clone();
-                        tvResults.attr("id", "");
-                        var tvResultsModal = $('#modal-clone').clone();
-                        tvResultsModal.attr("id", "");
-                        tvResults[0].querySelector('.results-header').innerHTML = this.title;
-                        tvResults[0].querySelector('.overview').innerHTML = this.overview;
-                        $('.group-results').append(tvResults);
+            if (title === '')
+            {
+                theMovieDb.discover.getMovies({
+                        language: "eng",
+                        review: review,
+                        primary_release_year: year},
+                    function (json) {
+                        var movieResults = $.parseJSON(json);
+                        $('.group-results').html();
+                        $.each(movieResults.results, function (index, movieResult) {
+                            console.log(movieResult);
+                            console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
+                            var tvResults = $('#results-clone').clone();
+                            tvResults.attr("id", "");
+                            var tvResultsModal = $('#modal-clone').clone();
+                            tvResultsModal.attr("id", "");
+                            tvResults[0].querySelector('.results-header').innerHTML = this.title;
+                            tvResults[0].querySelector('.overview').innerHTML = this.overview;
+                            $('.group-results').append(tvResults);
 
-                    })
-                },
-            errorCB
-            );
+                        })
+                    },
+                    errorCB
+                );
+            }
+            else {
+                 theMovieDb.search.getMovie({
+                         language: "eng",
+                         review: review,
+                         query: title},  function (json) {
+                         var movieResults = $.parseJSON(json);
+                         $('.group-results').html();
+                         $.each(movieResults.results, function (index, movieResult) {
+                             console.log(movieResult);
+                             console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
+                             var tvResults = $('#results-clone').clone();
+                             tvResults.attr("id", "");
+                             var tvResultsModal = $('#modal-clone').clone();
+                             tvResultsModal.attr("id", "");
+                             tvResults[0].querySelector('.results-header').innerHTML = this.title;
+                             tvResults[0].querySelector('.overview').innerHTML = this.overview;
+                             $('.group-results').append(tvResults);
 
+                         })
+                     },
+                     errorCB
+                 );
+            }
         }
 
         else {
-            theMovieDb.discover.getTvShows({
-                    language: "eng",
-                    title: title,
-                    first_air_date_year: year
-                },
-                function (json) {
-                    var movieResults = $.parseJSON(json);
-                    $('.group-results').html('');
-                    $.each(movieResults.results, function (index, movieResult) {
-                        //  console.log(movieResult);
-                        console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
-                        var tvResults = $('#results-clone').clone();
-                        tvResults.attr("id", "");
-                        var tvResultsModal = $('#modal-clone').clone();
-                        tvResultsModal.attr("id", "");
-                        tvResults[0].querySelector('.results-header').innerHTML = this.name;
-                        tvResults[0].querySelector('.overview').innerHTML = this.overview;
-                        tvResultsModal[0].querySelector('.movie-poster').src = "https://image.tmdb.org/t/p/w600_and_h900_bestv2" + this.poster_path;
-                        $('.group-results').append(tvResults);
-                      //  $('.group-results').append(tvResultsModal);
+            if (title === '') {
+                theMovieDb.discover.getTvShows({
+                        language: "eng",
+                        title: title,
+                        first_air_date_year: year
+                    },
+                    function (json) {
+                        var movieResults = $.parseJSON(json);
+                        $('.group-results').html('');
+                        $.each(movieResults.results, function (index, movieResult) {
+                            //  console.log(movieResult);
+                            console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
+                            var tvResults = $('#results-clone').clone();
+                            tvResults.attr("id", "");
+                            var tvResultsModal = $('#modal-clone').clone();
+                            tvResultsModal.attr("id", "");
+                            tvResults[0].querySelector('.results-header').innerHTML = this.name;
+                            tvResults[0].querySelector('.overview').innerHTML = this.overview;
+                            tvResultsModal[0].querySelector('.movie-poster').src = "https://image.tmdb.org/t/p/w600_and_h900_bestv2" + this.poster_path;
+                            $('.group-results').append(tvResults);
+                            //  $('.group-results').append(tvResultsModal);
 
-                    })
-                    $('.modal-trigger').leanModal();
-                },
-                errorCB
-            );
+                        })
+                        $('.modal-trigger').leanModal();
+                    },
+                    errorCB
+                );
+            }
+            else {
+                theMovieDb.search.getTv({
+                        language: "eng",
+                        query: title,
+                        first_air_date_year: year
+                    },
+                    function (json) {
+                        var movieResults = $.parseJSON(json);
+                        $('.group-results').html('');
+                        $.each(movieResults.results, function (index, movieResult) {
+                            //  console.log(movieResult);
+                            console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
+                            var tvResults = $('#results-clone').clone();
+                            tvResults.attr("id", "");
+                            var tvResultsModal = $('#modal-clone').clone();
+                            tvResultsModal.attr("id", "");
+                            tvResults[0].querySelector('.results-header').innerHTML = this.name;
+                            tvResults[0].querySelector('.overview').innerHTML = this.overview;
+                            tvResultsModal[0].querySelector('.movie-poster').src = "https://image.tmdb.org/t/p/w600_and_h900_bestv2" + this.poster_path;
+                            $('.group-results').append(tvResults);
+                            //  $('.group-results').append(tvResultsModal);
+
+                        })
+                        $('.modal-trigger').leanModal();
+                    },
+                    errorCB
+                );
+            }
         }
     });
 
