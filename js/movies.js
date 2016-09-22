@@ -61,6 +61,7 @@ $(document).ready(function() {
         var year = moment(date).format('YYYY');
         // console.log(year);
         var title = $.trim($('#search-text').val());
+        var genre = $('.genre-options').val();
 
        // $('.results-title').html('<h4>Search Results for "' + title + '"</h4>');
 
@@ -77,7 +78,7 @@ $(document).ready(function() {
             {
                 theMovieDb.discover.getMovies({
                         language: "eng",
-                        review: review,
+                        genre: genre,
                         primary_release_year: year},
                     function (json) {
                         var movieResults = $.parseJSON(json);
@@ -127,8 +128,9 @@ $(document).ready(function() {
             if (title === '') {
                 theMovieDb.discover.getTvShows({
                         language: "eng",
-                        title: title,
+                        genre: genre,
                         first_air_date_year: year
+
                     },
                     function (json) {
                         var movieResults = $.parseJSON(json);
@@ -142,7 +144,6 @@ $(document).ready(function() {
                             tvResultsModal.attr("id", "");
                             tvResults[0].querySelector('.results-header').innerHTML = this.name;
                             tvResults[0].querySelector('.overview').innerHTML = this.overview;
-                            tvResultsModal[0].querySelector('.movie-poster').src = "https://image.tmdb.org/t/p/w600_and_h900_bestv2" + this.poster_path;
                             $('.group-results').append(tvResults);
                             //  $('.group-results').append(tvResultsModal);
 
