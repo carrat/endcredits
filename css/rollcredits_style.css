@@ -72,6 +72,13 @@ h4.search-title {
 	display: none;
 }
 
+#intro-content {
+	padding-top: 50px;
+	padding-right: 50px;
+	display: none;
+}
+
+
 form {
 
 }
@@ -122,7 +129,13 @@ nav {
 	margin-right: 30px;
 	margin-bottom: 30px;
 }
+.modal {
+	background: rgba(255,255,255,1);
+}
 
+.modal-content h4 {
+	font-size: 3rem;
+}
 footer.page-footer {
 	margin-top: 0px;
 	padding-top: 0px;
@@ -135,6 +148,12 @@ h1 {
 h4 {
 	font-size: 1.5rem;
 	font-weight: 300;
+}
+
+h5 {
+	font-size: 1.3rem;
+	font-weight: 100;
+
 }
 
 .row {
