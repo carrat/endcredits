@@ -29,8 +29,6 @@ $(document).ready(function() {
         $('#year-options').append($('<option />').val(i).html(i));
     }
     //code to populate years
-    
-     $('.lookup').change(function() {
 
     
     // record changes to Movie/TV Slider
@@ -53,6 +51,8 @@ $(document).ready(function() {
         var date = ($('#start-date').val());
         // console.log(date);
         var year = moment(date).format('YYYY');
+        var fullDate = moment(date).format('YYYY-MM-DD');
+         console.log(fullDate);
         // console.log(year);
         var title = $.trim($('#search-text').val());
 
@@ -84,18 +84,6 @@ $(document).ready(function() {
                     var movieResults = $.parseJSON(json);
                     $.each(movieResults.results, function(index, movieResult) {
                         console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
-<<<<<<< HEAD
-                   	 	var tvResults = $('#results-clone').clone();
-                   	 	tvResults.attr("id","");
-	          			var tvResultsModal = $('#modal-clone').clone();
-	          			tvResultsModal.attr("id","");
-	          			tvResults[0].querySelector('.results-header').innerHTML = this.name;
-	          			tvResults[0].querySelector('.overview').innerHTML = this.overview;
-	          			tvResultsModal[0].querySelector('.movie-poster').src = "https://image.tmdb.org/t/p/w600_and_h900_bestv2" + this.poster_path;
-	          			$('.group-results').append(tvResults);
-	          			$('.group-results').append(tvResultsModal);
-                        //test
-=======
                         if ($.isEmptyObject(movieResult) == false) {
                         //  console.log(movieResult);    
                             $.each(movieResult, function(index, movie) {
@@ -103,7 +91,6 @@ $(document).ready(function() {
                                 outputSearchTV(movie);
                             });                   
                         }
->>>>>>> parent of 74720a7... Revert "Merge branch 'master' into Jonathan-branch"
                     })
                 },
                 errorCB);
