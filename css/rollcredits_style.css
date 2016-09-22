@@ -72,6 +72,13 @@ h4.search-title {
 	display: none;
 }
 
+#intro-content {
+	padding-top: 50px;
+	padding-right: 50px;
+	display: none;
+}
+
+
 form {
 
 }

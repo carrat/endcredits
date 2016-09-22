@@ -47,12 +47,14 @@
     <div class="navbar-fixed ">
       <nav>
         <div class="nav-wrapper deep-orange darken-1 z-depth-1">
-          <a href="#" class="brand-logo">rollCredits</a>
+          <a href="index.html" class="brand-logo">rollCredits</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="#">Login</a></li>
-            <li><a href="#">Development Team</a></li>
-            <li><a href="#">Presentation</a></li>
+            <li><a href="#modal-dev" class="modal-trigger">Development Team</a></li>
+            <li><a href="#" class="modal-trigger">Presentation</a></li>
           </ul>
+
+         
         </div>
       </nav>
     </div>
@@ -74,6 +76,31 @@
         <div id="intro-text">
           <h4 class="white-text">Search for a specific movie by title, or discover new movies by searching the database by one or more parameters.</h4>
         </div>
+<!-- Intro content displayes on load if there has been no search, it disappears on search -->
+        <div id="intro-content" class="hide-on-small-only">
+            <div id="lists" class="row">
+              <div class="col s4 m6 l4">
+                <div class="hide-on-small-only" id="coming-soon">
+                  <h4 class="white-text">Coming Soon</h4>
+                  <div id="recent-searches-cloud"></div>
+                </div>
+              </div>
+
+              <div class="col s4 m6 l4">
+                <div class="hide-on-small-only most-popular" >
+                  <h4 class="white-text">Most Popular Movies</h4>
+                  <div id="recent-searches-cloud"></div>
+                </div>
+              </div>
+
+              <div class="col hide-on-med-and-down l4">
+                <div class="hide-on-small-only  most-popular" >
+                  <h4 class="white-text">Most Popular TV</h4>
+                  <div id="recent-searches-cloud"></div>
+                </div>
+              </div>
+            </div>
+        </div>
 
         <div id="search-results" class="hide-on-small-only">
 
@@ -84,31 +111,7 @@
           </ul>
         </div>
 
-         <!-- <div id="lists" class="row">
-
-            <div class="col s4 m6 l4">
-              <div class="hide-on-small-only" id="recent-searches">
-                <h4 class="white-text">Recent Searches</h4>
-                <div id="recent-searches-cloud"></div>
-              </div>
-            </div>
-
-            <div class="col s4 m6 l4">
-              <div class="hide-on-small-only most-popular" >
-                <h4 class="white-text">Most Popular Movies</h4>
-                <div id="recent-searches-cloud"></div>
-              </div>
-            </div>
-
-            <div class="col hide-on-med-and-down l4">
-              <div class="hide-on-small-only  most-popular" >
-                <h4 class="white-text">Most Popular TV</h4>
-                <div id="recent-searches-cloud"></div>
-              </div>
-            </div>
-
-          </div>
-        -->
+        
 
 
       </div>
@@ -211,25 +214,35 @@
       </div>
   </main>
 
-  <footer class="page-footer deep-orange darken-4 hide-on-small-only z-depth-1">
+  <footer class="page-footer grey darken-3 hide-on-small-only z-depth-1">
 
-  <!--
+
     <div class="container">
       <div class="row">
-        <div class="col l6 s12">
-          <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
-        </div>
-        <div class="col l4 offset-l2 s12">
+     
+        <div class="col l12 s12 center">
           <ul>
-            <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+            <li><a class="grey-text text-lighten-3 modal-trigger" href="#modal-dev">Development Team</a></li>
+            <div id="modal-dev" class="modal">
+              <div class="modal-content left-align">
+                <h3 class="modal-title">Development Team</h3>
+
+                <h4>Andrew Carr</h4>
+                <p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra est quis bibendum lobortis. Quisque venenatis gravida enim in ornare. Quisque ante ante, fringilla sit amet risus non, suscipit sollicitudin urna. Aenean mattis eros eu orci posuere dictum. </p>
+
+                <h4>Jonathan Damrich</h4>
+                <p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra est quis bibendum lobortis. Quisque venenatis gravida enim in ornare. Quisque ante ante, fringilla sit amet risus non, suscipit sollicitudin urna. Aenean mattis eros eu orci posuere dictum. </p>
+                <hr>
+                <p>
+                </p>
+              </div>
+            </div>
+         
           </ul>
         </div>
       </div>
     </div>
-    -->
+   
 
     <div class="footer-copyright deep-orange darken-4 center-align">
       <div class="container">

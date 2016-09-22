@@ -11,6 +11,10 @@ $(document).ready(function() {
 // Click handler for modal launch
     $(document).on("click", '.more-info', getGuideboxId);
 
+    $('.modal-trigger').leanModal();
+
+    $('#intro-content').show();
+
 // Create dropdown select elements for form
     theMovieDb.genres.getList('',
         function (json) {
@@ -47,6 +51,7 @@ $(document).ready(function() {
     $('#search').click(function () {
 
         $('#search-results-collection').empty();
+        $('#intro-content').hide();
         $('#search-results').show();
 
         var lookup = $('.lookup').val(); // slider to determine if search is for movies or TV
@@ -133,12 +138,14 @@ $(document).ready(function() {
         $(modalContentDiv).append('<p class="description">' + results.overview + '</p>');
 
         if (results.release_date !== '') {
-            $(modalContentDiv).append('<p class="releaseDate">Release Date: ' + moment(results.release_date).format("M/D/YYYY") + '</p>');
+            $(modalContentDiv).append('<p class="releaseDate"><strong>Release Date:</strong> ' + moment(results.release_date).format("M/D/YYYY") + '</p>');
         }
-        $(modalContentDiv).append('<p class="voteAverage">Rating: ' + results.vote_average + '</p>');
-        $(modalContentDiv).append('<p class="genres">Genre: ' + results.genre_ids + '</p>');
+        $(modalContentDiv).append('<p class="voteAverage"><strong>Rating:</strong> ' + results.vote_average + '</p>');
 
         $(modalDiv).html(modalContentDiv);
+
+        genreDiv = $('<div>').attr("class", "modal-genre");
+        $(modalContentDiv).append(genreDiv);
 
         castDiv = $('<div>').attr("class", "modal-cast");
         $(modalContentDiv).append(castDiv);
@@ -183,26 +190,26 @@ $(document).ready(function() {
             $(modalContentDiv).append('<p class="releaseDate">Release Date: ' + moment(results.release_date).format("M/D/YYYY") + '</p>');
         }
         $(modalContentDiv).append('<p class="voteAverage">Rating: ' + results.vote_average + '</p>');
-        $(modalContentDiv).append('<p class="genres">Genre: ' + results.genre_ids + '</p>');
 
         $(modalDiv).html(modalContentDiv);
+
+        genreDiv = $('<div>').attr("class", "modal-genre");
+        $(modalContentDiv).append(genreDiv);
+
+        castDiv = $('<div>').attr("class", "modal-cast");
+        $(modalContentDiv).append(castDiv);
+
+        trailerDiv = $('<div>').attr("class", "modal-trailer");
+        $(modalContentDiv).append(trailerDiv);
+
 
         $(resultsItem).append(modalDiv);
         // write each item to collection
         $('#search-results-collection').append(resultsItem);
         // activate modal
         $('.modal-trigger').leanModal();
-    
-        if (results.release_date !== '') {
 
-            $(modalContentDiv).append('<p class="releaseDate">Release Date: ' + moment(results.release_date).format("M/D/YYYY") + '</p>');
-        }
-        
-        $(modalContentDiv).append('<p class="voteAverage">Rating: ' + results.vote_average + '</p>');
-        trailerDiv = $('<div>').attr("class", "modal-trailer");
-        $(modalContentDiv).append(trailerDiv);
-
-        //$(modalContentDiv).append('<p class="genres">Genre: ' + results.genre_ids + '</p>');
+       
     }
 
     function getGuideboxId() {
@@ -221,6 +228,7 @@ $(document).ready(function() {
 
                 $('.modal-cast').empty();
                 $('.modal-trailer').empty();
+                $('.modal-genre').empty();
 
                 if (guideboxID) {
                     getExtendedInfo(guideboxID);
@@ -235,13 +243,15 @@ $(document).ready(function() {
         var queryURL = "http://api-public.guidebox.com/v1.43/US/rKwkNTh5aiZK8KPTmhj7bdYPhqvJRg0q/movie/" + id; // search API
         cast = '';
         castArray =[];
+        genres = '';
+        genreArray = [];
                 
         $.ajax({url: queryURL, method: 'GET'})
             .done(function(response) {
                 var extendedResults = response;
 
                 if (extendedResults.trailers.web) {
-                    $('.modal-trailer').html('<p>Trailer:</p>  <iframe width="320" height="180" src="' + extendedResults.trailers.web[0].embed + '&width=320&height=180" frameborder="0" allowfullscreen></iframe>');
+                    $('.modal-trailer').html('<p><strong>Trailer:</strong></p>  <iframe width="320" height="180" src="' + extendedResults.trailers.web[0].embed + '&width=320&height=180" frameborder="0" allowfullscreen></iframe>');
                 }
 
                 cast = extendedResults.cast;
@@ -250,7 +260,15 @@ $(document).ready(function() {
                     castArray.push(castName);
                 }
 
-                $('.modal-cast').html("Cast: " + castArray);
+                $('.modal-cast').html("<p><strong>Cast:</strong> " + castArray + "</p>");
+
+                genres = extendedResults.genres;
+                for (i=0; i < genres.length; i++) {
+                    genreName = " " + genres[i].title;
+                    genreArray.push(genreName);
+                }
+
+                $('.modal-genre').html("<p><strong>Genre:</strong> " + genreArray + "</p>");
 
         });
     
