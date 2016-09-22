@@ -72,7 +72,10 @@
       <div class="col s12 m8 l9"  id="app-intro-div">
 
         <div id="intro-text">
-          <h4 class="white-text">Search for a specific movie by title, or discover new movies by searching the database by one or more parameters.</h4>
+          <h4 class="white-text">Welcome to RollCredits!</h4>
+
+          <p class="white-text">Search for a specific movie by title, or discover new movies by searching the database by one or more parameters.
+          </p>
         </div>
 
         <div id="search-results" class="hide-on-small-only">
@@ -84,7 +87,7 @@
           </ul>
         </div>
 
-         <!-- <div id="lists" class="row">
+          <div id="lists" class="row">
 
             <div class="col s4 m6 l4">
               <div class="hide-on-small-only" id="recent-searches">
@@ -108,7 +111,6 @@
             </div>
 
           </div>
-        -->
 
 
       </div>
@@ -117,17 +119,19 @@
         <h4 class="white-text search-title">Search</h4>
           <div class="row">
 
-
-            <form class="col s12 ">
-
-            <div class="switch">
+            <form class="col s12 slider-form">
+              <div class="switch">
                 <label>
                   Movies
-                  <input type="checkbox" name="lookup" class="lookup">
+                  <input type="checkbox">
                   <span class="lever"></span>
                   TV
                 </label>
               </div>
+            </form>
+
+
+            <form class="col s12 ">
 
              <p class="white-text">By Title</p>
               
@@ -144,9 +148,9 @@
               <p class="white-text">By Genre</p>
 
               <div class="row valign-wrapper">
-                <div class="input-field col s12 genre-div">
+                <div class="input-field col s12">
                    <select id="genre-options">
-                   <option value="" class="default-genre-option">Select a Genre</option>
+                   <option value="" id="default-genre-option">Select a Genre</option>
                     </select>
                     
                 </div>  
@@ -155,14 +159,20 @@
               <p class="white-text">By Release Date</p>
 
               <div class="row valign-wrapper">
-                  <div class="input-field col s12 genre-div">
-                   <select id="year-options">
-                   <option value="" class="default-year-option">Select a Year</option>
-                    </select>
-                    
-              </div> 
+
               
 
+                <div class="input-field-date col s12">
+                <label>Start Date</label>
+                   <input type="start_date" class="datepicker" id="start-date">
+                </div>  
+              </div>
+
+              <div class="row valign-wrapper">
+                <div class="input-field-date col s12">
+                <label>End Date</label>
+                   <input type="end_date" class="datepicker" id="end-date">
+                </div>  
               </div>
 
               <div class="row">
@@ -174,6 +184,17 @@
             </form>
           </div>
       </div>
+
+
+     
+
+           
+
+
+
+
+
+
 
     </div>
 
@@ -243,3 +264,7 @@
 
 </body>
 </html>
+
+
+
+
