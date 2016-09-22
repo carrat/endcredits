@@ -69,7 +69,6 @@ h4.search-title {
 #search-results {
 
 	padding-right: 50px;
-	display: none;
 }
 
 form {
@@ -134,7 +133,7 @@ h1 {
 
 h4 {
 	font-size: 1.5rem;
-	font-weight: 300;
+	font-weight: 200;
 }
 
 .row {
@@ -147,18 +146,13 @@ h4 {
 	margin-right: auto;
 }
 
-.more-info {
-	padding-left: 30px;
-	padding-bottom: 20px;
-}
-
 /* Form CSS */
 
 
 .input-field input {
   display: block;
   line-height: inherit;
-  padding-left: .4rem;
+  padding-left: 4rem;
   width: calc(100% - 4rem);
   background: #FFFFFF;
   padding-top: 0rem;
@@ -272,6 +266,11 @@ h4 {
 	padding-left: 10px;
 	padding-right: 10px;
 }
+
+
+
+
+
 
 
 
