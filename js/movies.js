@@ -56,12 +56,17 @@ $(document).ready(function() {
 
         var lookup = $('.lookup').val(); // slider to determine if search is for movies or TV
         var review = ($('#review').val());
-        var date = ($('#start-date').val());
+        var year = ($('#year-options').val());
+
         // console.log(date);
-        var year = moment(date).format('YYYY');
+       
+
         // console.log(year);
         var title = encodeURIComponent($.trim($('#search-text').val()));
-        var genre = $('.genre-options').val();
+        var genre = $('#genre-options').val();
+
+        console.log("Genre: " + genre);
+        console.log("Year: " + year);
 
        // $('.results-title').html('<h4>Search Results for "' + title + '"</h4>');
 
@@ -77,21 +82,19 @@ $(document).ready(function() {
             if (title === '')
             {
                 theMovieDb.discover.getMovies({
-                        language: "eng",
-                        genre: genre,
+                        language: "en-US",
+                        with_genres: genre,
                         primary_release_year: year},
                     function (json) {
                         var movieResults = $.parseJSON(json);
-                        $('.group-results').html();
-                        $.each(movieResults.results, function (index, movieResult) {
-                            console.log(movieResult);
-                            console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
-                            var tvResults = $('#results-clone').clone();
-                            tvResults.attr("id", "");
-                            tvResults[0].querySelector('.results-header').innerHTML = this.title;
-                            tvResults[0].querySelector('.overview').innerHTML = this.overview;
-                            $('.group-results').append(tvResults);
-
+                       console.log(movieResults);
+                       $.each(movieResults, function (index, movieResult) {
+                            if ($.isEmptyObject(movieResult) == false) {
+                                $.each(movieResult, function (index, movie) {
+                                    console.log(this.title, this.id, this.poster_path, this.release_date, this.overview, this.vote_average);
+                                    outputSearchMovie(movie);
+                                });
+                            }
                         })
                     },
                     errorCB
@@ -103,17 +106,14 @@ $(document).ready(function() {
                          review: review,
                          query: title},  function (json) {
                          var movieResults = $.parseJSON(json);
-                         $('.group-results').html();
-                         $.each(movieResults.results, function (index, movieResult) {
-                             console.log(movieResult);
-                             console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
-                             var tvResults = $('#results-clone').clone();
-                             tvResults.attr("id", "");
-                             tvResults[0].querySelector('.results-header').innerHTML = this.title;
-                             tvResults[0].querySelector('.overview').innerHTML = this.overview;
-                             $('.group-results').append(tvResults);
-
-                         })
+                         $.each(movieResults, function (index, movieResult) {
+                            if ($.isEmptyObject(movieResult) == false) {
+                                $.each(movieResult, function (index, movie) {
+                                    console.log(this.title, this.id, this.poster_path, this.release_date, this.overview, this.vote_average);
+                                    outputSearchMovie(movie);
+                                });
+                            }
+                        })
                      },
                      errorCB
                  );
