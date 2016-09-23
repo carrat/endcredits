@@ -129,7 +129,7 @@ $(document).ready(function() {
             if (title === '') {
                 theMovieDb.discover.getTvShows({
                         language: "eng",
-                        genre: genre,
+                        with_genres: genre,
                         first_air_date_year: year
 
                     },
@@ -137,7 +137,7 @@ $(document).ready(function() {
                         var movieResults = $.parseJSON(json);
                         $('.group-results').html('');
                         $.each(movieResults.results, function (index, movieResult) {
-                            //  console.log(movieResult);
+                            console.log(movieResult);
                             console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
                             var tvResults = $('#results-clone').clone();
                             tvResults.attr("id", "");
