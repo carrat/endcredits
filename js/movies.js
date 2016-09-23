@@ -15,6 +15,11 @@ $(document).ready(function() {
 
     $('#intro-content').show();
 
+    $('.reset-search').on("click", function() {
+
+        $('#search-results-collection').empty();
+    });
+
 // Create dropdown select elements for form
     theMovieDb.genres.getList('',
         function (json) {
@@ -194,7 +199,6 @@ $(document).ready(function() {
         $(resultsItem).append(itemBodyDiv);
 
         modalDiv = $('<div>').attr("id", "modal-" + results.id).attr("class", "modal");
-
         modalContentDiv = $('<div>').attr("class", "modal-content").html("<h4>" + results.title + "</h4>");
 
         if (results.poster_path !== null) {

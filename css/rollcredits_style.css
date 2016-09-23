@@ -131,6 +131,7 @@ nav {
 }
 .modal {
 	background: rgba(255,255,255,1);
+	border: 5px solid #999999 ;
 }
 
 .modal-content h4 {
