@@ -329,7 +329,7 @@ $(document).ready(function() {
     // get the corresponding Guidebox ID from the themovieddb ID
         
         var id = $(this).attr("data-id");
-        var queryURL = "http://api-public.guidebox.com/v1.43/US/rKwkNTh5aiZK8KPTmhj7bdYPhqvJRg0q/search/movie/id/themoviedb/" + id; // search API
+        var queryURL = "https://api-public.guidebox.com/v1.43/US/rKwkNTh5aiZK8KPTmhj7bdYPhqvJRg0q/search/movie/id/themoviedb/" + id; // search API
 
         $.ajax({
             url: queryURL, 
@@ -358,7 +358,7 @@ $(document).ready(function() {
     // get the corresponding Guidebox ID from the themovieddb ID
         
         var id = $(this).attr("data-id");
-        var queryURL = "http://api-public.guidebox.com/v1.43/US/rKwkNTh5aiZK8KPTmhj7bdYPhqvJRg0q/search/id/themoviedb/" + id; // search API
+        var queryURL = "https://api-public.guidebox.com/v1.43/US/rKwkNTh5aiZK8KPTmhj7bdYPhqvJRg0q/search/id/themoviedb/" + id; // search API
 
         $.ajax({
             url: queryURL, 
@@ -385,7 +385,7 @@ $(document).ready(function() {
 
     function getExtendedInfo(id) {
         //Get extended info for a Movie or Episode from Guidebox and output to modal
-        var queryURL = "http://api-public.guidebox.com/v1.43/US/rKwkNTh5aiZK8KPTmhj7bdYPhqvJRg0q/movie/" + id; // search API
+        var queryURL = "https://api-public.guidebox.com/v1.43/US/rKwkNTh5aiZK8KPTmhj7bdYPhqvJRg0q/movie/" + id; // search API
         castArray =[];
         genreArray = [];
         purchaseWebArray = [];
@@ -463,7 +463,7 @@ $(document).ready(function() {
 
     function getExtendedInfoTV(tid, id) {
         //Get extended info for a Movie or Episode from Guidebox and output to modal
-        var queryURL = "http://api-public.guidebox.com/v1.43/US/rKwkNTh5aiZK8KPTmhj7bdYPhqvJRg0q/show/" + id; // search API
+        var queryURL = "https://api-public.guidebox.com/v1.43/US/rKwkNTh5aiZK8KPTmhj7bdYPhqvJRg0q/show/" + id; // search API
         castArray =[];
         genreArray = [];
         purchaseWebArray = [];
