@@ -76,31 +76,29 @@
 
         <div id="intro-text">
           <h5 class="white-text">Search for a specific movie by title, or discover new movies by searching the database by one or more parameters.</h5>
+         
         </div>
 <!-- Intro content displays on load if there has been no search, it disappears on search -->
         <div id="intro-content" class="hide-on-small-only">
             <div id="lists" class="row">
-              <div class="col s4 m6 l4">
-                <div class="hide-on-small-only" id="coming-soon">
-                  <h4 class="white-text">Coming Soon</h4>
-                  <div id="recent-searches-cloud"></div>
-                </div>
+              <div class="col s6 m6 l6" id="intro-box-1">
+
+              <ul class="collapsible group-results" data-collapsible="accordion" id="intro-box-collection-1">
+           
+          </ul>
+
+                
               </div>
 
-              <div class="col s4 m6 l4">
-                <div class="hide-on-small-only most-popular" >
-                  <h4 class="white-text">Most Popular Movies</h4>
-                  <div id="recent-searches-cloud"></div>
-                </div>
-              </div>
+              <div class="col s6 m6 l6" id="intro-box-2">
 
-              <div class="col hide-on-med-and-down l4">
-                <div class="hide-on-small-only  most-popular" >
-                  <h4 class="white-text">Most Popular TV</h4>
-                  <div id="recent-searches-cloud"></div>
-                </div>
+              <ul class="collapsible group-results" data-collapsible="accordion" id="intro-box-collection-2">
+           
+              </ul>
+                
               </div>
             </div>
+
         </div>
 
         <div id="search-results" class="">
@@ -181,38 +179,6 @@
 
     </div>
 
-<!--hidden elements for cloning results-->
-
-<div hidden>
- <li id="results-clone">
-              <div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i><span class="results-header">First</span></div>
-              <div class="collapsible-body white-text"><p class="overview">Lorem ipsum dolor sit amet.</p>
-              <p><a class="modal-trigger center-align more-info waves-effect" href="#modal1">More Info</a></p></div>
-            </li>
-
-            <div id="modal-clone" class="modal">
-              <div class="modal-content">
-                <h4 class="modal-title">Movie Title (2005)</h4>
-                <p><img src="" class="movie-poster">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra est quis bibendum lobortis. Quisque venenatis gravida enim in ornare. Quisque ante ante, fringilla sit amet risus non, suscipit sollicitudin urna. Aenean mattis eros eu orci posuere dictum. </p>
-                <hr>
-                <p>
-                </p>
-              </div>
-            </div>
-            
-
-            <li>
-              <div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>Second</div>
-              <div class="collapsible-body white-text"><p>Lorem ipsum dolor sit amet.</p>
-              <p><a class="modal-trigger center-align more-info waves-effect" href="#modal2">More Info</a></p></div>
-            </li>
-
-            <li>
-              <div class="collapsible-header"><i class="material-icons deep-orange-text darken-4-text">new_releases</i>Third</div>
-              <div class="collapsible-body white-text"><p>Lorem ipsum dolor sit amet.</p>
-              <p><a class="modal-trigger center-align more-info waves-effect" href="#modal3">More Info</a></p></div>
-            </li>
-      </div>
   </main>
 
   <footer class="page-footer grey darken-3 hide-on-small-only z-depth-1">
@@ -229,10 +195,10 @@
                 <h3 class="modal-title">Development Team</h3>
 
                 <h5>Andrew Carr</h5>
-                <p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra est quis bibendum lobortis. Quisque venenatis gravida enim in ornare. Quisque ante ante, fringilla sit amet risus non, suscipit sollicitudin urna. Aenean mattis eros eu orci posuere dictum. </p>
+               
 
                 <h5>Jonathan Damrich</h5>
-                <p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pharetra est quis bibendum lobortis. Quisque venenatis gravida enim in ornare. Quisque ante ante, fringilla sit amet risus non, suscipit sollicitudin urna. Aenean mattis eros eu orci posuere dictum. </p>
+                
                 <hr>
                 <p>
                 </p>
