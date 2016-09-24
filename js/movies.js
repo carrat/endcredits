@@ -106,10 +106,13 @@ $(document).ready(function() {
             if (title === '')
             {
 
+                $('.results-title').html('<h4>Search Results</h4>');
+
                 theMovieDb.discover.getMovies({
                         language: "en-US",
                         with_genres: genre,
-                        primary_release_year: year},
+                        primary_release_year: year,
+                        include_adult: "false"},
                     function (json) {
                         var movieResults = $.parseJSON(json);
                        console.log(movieResults);

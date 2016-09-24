@@ -6,6 +6,10 @@
 
 **Jonathan Damrich**
 
+##App
+[View rollCredits](http://vast-shore-85583.herokuapp.com/)
+
+
 
 ## Tech
 
