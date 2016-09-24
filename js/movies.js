@@ -6,6 +6,101 @@ function errorCB(data) {
     //   console.log("Error callback: " + data);
 };
 
+function discoverCB(json) {
+
+    var movieResults = $.parseJSON(json);
+    var totalPages = movieResults.total_pages;
+    var maxPages = (totalPages < 10) ? totalPages: 10;
+    var currentPage = movieResults.page;
+    console.log(movieResults);
+    $('.group-results').html('');
+    $('#pagination-results').html('');
+    $.each(movieResults.results, function (index, movieResult) {
+        // console.log(movieResult);
+        // console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
+        var tvResults = $('#results-clone').clone();
+        tvResults.attr("id", "");
+        tvResults[0].querySelector('.results-header').innerHTML = this.title;
+        tvResults[0].querySelector('.overview').innerHTML = this.overview;
+        $('.group-results').append(tvResults);
+
+    })
+    //add html for pagination
+    if (totalPages > 1) {
+        var pagination = $('#paginate-clone').children('ul').clone();
+        pagination.attr("id","pagination-ul");
+        //   console.log(pagination);
+        $('#pagination-results').append(pagination);
+
+
+        for (var pageIndex=1; pageIndex < maxPages; pageIndex ++) {
+            var page_clone = $('#pagination-ul > li:last-child').clone();
+            page_clone.removeClass('active');
+            //increase number for each link
+            $(page_clone).children('a').html(pageIndex);
+            if (pageIndex == currentPage) {
+                $(page_clone).addClass('active');
+            } else {
+                $(page_clone).removeClass('active');
+            }
+            $('#pagination-ul').append(page_clone);
+            var page = $(page_clone).children('a').html()
+            //onClick event for increasing results
+            $(page_clone).click(function() {
+                var page = $(this).children('a').html();
+                var searchObject = {
+                    language: "eng",
+                    airYear: "",
+                    page: page
+                };
+                // console.log('sup');
+                var year = ($('#date-options').val());
+               // var year = moment(date).format('YYYY');
+                // console.log(year);
+                var title = encodeURIComponent($.trim($('#search-text').val()));
+                var genre = $('#genre-options').val();
+                var airYear, method, queryType;
+                if (title !== '') {
+                    searchObject['queryType'] = 'search';
+                    searchObject['title'] = title;
+                    if ($('.lookup').val() === 'on') {
+                        searchObject.airYear = 'primary_release_year';
+                        method = 'getMovie';
+                    }
+                    else {
+                        airYear = 'first_air_date_year';
+                        method = 'getTvShow';
+                    }
+                } else {
+                    searchObject['queryType'] = 'discover';
+                    searchObject['genre'] = genre;
+                    if ($('.lookup').val() === 'on') {
+                        searchObject.airYear = 'primary_release_year';
+                        method = 'getMovies';
+                    }
+                    else {
+                        airYear = 'first_air_date_year';
+                        method = 'getTvShows';
+                    }
+
+
+                }
+                theMovieDb.discover[method](
+                    searchObject,
+                    discoverCB,
+                    errorCB
+                )
+
+            })
+        }
+        //move arrow to end of page numbers
+        $('#pagination-ul').append($('#pagination-ul > li.waves-effect'));
+        //remove original 1
+        $('#pagination-ul > li.active.active-page').remove();
+    }
+
+}
+
 $(document).ready(function() {
 
 // Click handler for modal launch
@@ -22,8 +117,8 @@ $(document).ready(function() {
             //console.log(results.genres);
             $.each(results.genres, function (index, genre) {
                 var option = $('<option>').attr('class', 'genre');
-                option.attr("id", " ");
                 option.val(this.id);
+                console.log(option.val(this.id))
                 option.html(this.name);
                 //console.log(this.name);
                 $('#genre-options').append(option);
@@ -53,15 +148,18 @@ $(document).ready(function() {
         $('#search-results-collection').empty();
         $('#intro-content').hide();
         $('#search-results').show();
+        $('#pagination-results').html('');
 
         var lookup = $('.lookup').val(); // slider to determine if search is for movies or TV
         var review = ($('#review').val());
-        var date = ($('#start-date').val());
+        var year = ($('#year-options').val());
         // console.log(date);
-        var year = moment(date).format('YYYY');
+      //  var year = moment(date).format('YYYY');
         // console.log(year);
         var title = encodeURIComponent($.trim($('#search-text').val()));
-        var genre = $('.genre-options').val();
+        var genre = $('#genre-options').val();
+      //  console.log(genre);
+        var page = 1;
 
        // $('.results-title').html('<h4>Search Results for "' + title + '"</h4>');
 
@@ -76,32 +174,26 @@ $(document).ready(function() {
         if (lookup === 'on') {
             if (title === '')
             {
-                theMovieDb.discover.getMovies({
+                theMovieDb.discover.getMovies(
+                    {
                         language: "eng",
                         genre: genre,
-                        primary_release_year: year},
-                    function (json) {
-                        var movieResults = $.parseJSON(json);
-                        $('.group-results').html();
-                        $.each(movieResults.results, function (index, movieResult) {
-                            console.log(movieResult);
-                            console.log(this.name, this.id, this.poster_path, this.first_air_date, this.overview, this.vote_average);
-                            var tvResults = $('#results-clone').clone();
-                            tvResults.attr("id", "");
-                            tvResults[0].querySelector('.results-header').innerHTML = this.title;
-                            tvResults[0].querySelector('.overview').innerHTML = this.overview;
-                            $('.group-results').append(tvResults);
-
-                        })
+                        primary_release_year: year,
+                        page: page
                     },
+                    discoverCB,
                     errorCB
                 );
             }
             else {
-                 theMovieDb.search.getMovie({
+                 theMovieDb.search.getMovie(
+                     {
                          language: "eng",
-                         review: review,
-                         query: title},  function (json) {
+                         primary_release_year: year,
+                         query: title,
+                         page: page
+                     },
+                     function (json) {
                          var movieResults = $.parseJSON(json);
                          $('.group-results').html();
                          $.each(movieResults.results, function (index, movieResult) {
@@ -148,10 +240,12 @@ $(document).ready(function() {
                 );
             }
             else {
+                var weawefwe = 1;
                 theMovieDb.search.getTv({
-                     //   language: "eng",
+                        language: "eng",
                         query: title,
-                        first_air_date_year: year
+                        first_air_date_year: year,
+                        page: page
                     },
                     function (json) {
                         var movieResults = $.parseJSON(json);
